@@ -1,0 +1,20 @@
+NAME:
+Pragam Sharma
+
+CLASS:
+First Year Student
+
+Univeristy:
+NST-RU
+
+HOBBIES:
+Football
+Sketching
+Singing
+
+SKILLS:
+Basic Python, Basic CLI, Blender 
+
+WHAT I WANT?
+One file index.html which contains html css code
+and it should have my portfolio 
