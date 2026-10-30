@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pragam Sharma | Portfolio</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   RESET & FOUNDATIONS
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-dark: #07070c;
+  --bg-card: rgba(12, 12, 22, 0.7);
+  --red-primary: #c62828;
+  --red-glow: #ff1a1a;
+  --blue-primary: #1565c0;
+  --blue-glow: #42a5f5;
+  --neon-accent: #ff4d6d;
+  --amber-eye: #f9a825;
+  --amber-glow: #ffd54f;
+  --electric-yellow: #ffee58;
+  --electro-blue: #448aff;
+  --text-primary: #e8e8f0;
+  --text-secondary: #8e8ea8;
+  --web-color: rgba(255, 255, 255, 0.045);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-bg: rgba(14, 14, 28, 0.6);
+  --gradient-red-blue: linear-gradient(135deg, var(--red-primary), var(--blue-primary));
+  --gradient-hero: linear-gradient(160deg, #c62828 0%, #1565c0 40%, #f9a825 100%);
+  --gradient-tasm: linear-gradient(135deg, var(--red-primary), var(--amber-eye));
+  --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red-primary) var(--bg-dark);
+}
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: var(--bg-dark); }
+html::-webkit-scrollbar-thumb { background: var(--red-primary); border-radius: 3px; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM CURSOR — SPIDER ICON
+   ═══════════════════════════════════════════════════════════════ */
+@media (hover: hover) {
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%23e23636'/%3E%3Ccircle cx='12' cy='12' r='7' fill='none' stroke='%23e23636' stroke-width='0.5'/%3E%3C/svg%3E") 12 12, auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CANVAS & PARTICLES (behind everything)
+   ═══════════════════════════════════════════════════════════════ */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WEB BACKGROUND — TASM angular geometric pattern
+   ═══════════════════════════════════════════════════════════════ */
+.web-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.10;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 18%, var(--web-color) 18.3%, transparent 18.6%),
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 32%, var(--web-color) 32.3%, transparent 32.6%),
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 48%, var(--web-color) 48.3%, transparent 48.6%),
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 66%, var(--web-color) 66.3%, transparent 66.6%),
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 86%, var(--web-color) 86.3%, transparent 86.6%);
+  background-size: 500px 500px;
+  background-position: center;
+}
+.web-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg,    transparent 49.7%, var(--web-color) 50%, transparent 50.3%),
+    linear-gradient(30deg,   transparent 49.7%, var(--web-color) 50%, transparent 50.3%),
+    linear-gradient(60deg,   transparent 49.7%, var(--web-color) 50%, transparent 50.3%),
+    linear-gradient(90deg,   transparent 49.7%, var(--web-color) 50%, transparent 50.3%),
+    linear-gradient(120deg,  transparent 49.7%, var(--web-color) 50%, transparent 50.3%),
+    linear-gradient(150deg,  transparent 49.7%, var(--web-color) 50%, transparent 50.3%);
+  background-size: 500px 500px;
+  background-position: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHTNING / ELECTRO CANVAS (TASM2 Electro aesthetic)
+   ═══════════════════════════════════════════════════════════════ */
+#lightning-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LENS FLARE — TASM cinematic look
+   ═══════════════════════════════════════════════════════════════ */
+.lens-flare {
+  position: fixed;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.8s;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle,
+    rgba(249,168,37,0.15) 0%,
+    rgba(249,168,37,0.06) 30%,
+    rgba(198,40,40,0.03) 60%,
+    transparent 80%
+  );
+}
+.lens-flare.visible { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ELECTRO CRACKLE on section dividers
+   ═══════════════════════════════════════════════════════════════ */
+.section-divider {
+  position: relative;
+  z-index: 1;
+  height: 1px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+  overflow: visible;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(249,168,37,0) 20%,
+    rgba(249,168,37,0.4) 50%,
+    rgba(249,168,37,0) 80%,
+    transparent 100%
+  );
+  animation: electricPulse 3s ease-in-out infinite;
+  filter: blur(1px);
+}
+@keyframes electricPulse {
+  0%, 100% { opacity: 0; transform: scaleX(0.3); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+/* TASM golden eye glow for interactive elements */
+.amber-glow {
+  box-shadow: 0 0 20px rgba(249,168,37,0.15), 0 0 60px rgba(249,168,37,0.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL LAYOUT HELPERS
+   ═══════════════════════════════════════════════════════════════ */
+.section-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px 60px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 16px;
+  background: var(--gradient-red-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-red-blue);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+.section-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 56px;
+  font-size: 1.05rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  transition: background 0.4s, box-shadow 0.4s, padding 0.4s;
+}
+.navbar.scrolled {
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 30px rgba(226, 54, 54, 0.08);
+  padding: 10px 40px;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: var(--gradient-red-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  position: relative;
+}
+.nav-logo .spider-bracket { -webkit-text-fill-color: var(--red-primary); }
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.3s, background 0.3s;
+  position: relative;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-primary);
+  background: rgba(226, 54, 54, 0.1);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px;
+  height: 2px;
+  background: var(--red-primary);
+  border-radius: 1px;
+  transition: transform 0.3s var(--transition-smooth);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+  .navbar { padding: 14px 20px; }
+  .navbar.scrolled { padding: 10px 20px; }
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(10, 10, 15, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .nav-links a { font-size: 1.25rem; padding: 12px 32px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+
+/* Radial light bursts — TASM cinematic style */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(198, 40, 40, 0.10) 0%, transparent 70%);
+  animation: heroPulse 6s ease-in-out infinite;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(249, 168, 37, 0.08) 0%, transparent 70%);
+  animation: heroPulse 6s ease-in-out infinite 3s;
+}
+/* Third glow — TASM golden eye accent */
+.hero .hero-glow-amber {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(249, 168, 37, 0.06) 0%, transparent 60%);
+  animation: heroPulse 8s ease-in-out infinite 1.5s;
+  pointer-events: none;
+}
+@keyframes heroPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(249, 168, 37, 0.08);
+  border: 1px solid rgba(249, 168, 37, 0.25);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  color: var(--amber-eye);
+  margin-bottom: 28px;
+  animation: fadeInDown 0.8s var(--transition-smooth) both;
+  backdrop-filter: blur(8px);
+}
+.hero-badge .pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--amber-eye);
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(249, 168, 37, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(249, 168, 37, 0); }
+}
+
+.hero-name {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s var(--transition-smooth) 0.2s both;
+}
+.hero-name .first-name {
+  display: block;
+  color: var(--text-primary);
+}
+.hero-name .last-name {
+  display: block;
+  background: var(--gradient-hero);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 20px;
+  animation: fadeInUp 0.8s var(--transition-smooth) 0.4s both;
+}
+
+.hero-typing {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--amber-eye);
+  font-family: 'Courier New', monospace;
+  min-height: 1.6em;
+  margin-bottom: 36px;
+  animation: fadeInUp 0.8s var(--transition-smooth) 0.5s both;
+  text-shadow: 0 0 12px rgba(249,168,37,0.3);
+}
+.hero-typing .cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--amber-eye);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s var(--transition-smooth) 0.6s both;
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary {
+  background: var(--gradient-red-blue);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(226, 54, 54, 0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 30px rgba(226, 54, 54, 0.4);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover {
+  border-color: var(--red-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(226, 54, 54, 0.15);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInUp 0.8s var(--transition-smooth) 1s both;
+}
+.scroll-indicator .mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  position: relative;
+}
+.scroll-indicator .mouse::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: var(--red-primary);
+  border-radius: 2px;
+  animation: scrollDot 2s ease-in-out infinite;
+}
+@keyframes scrollDot {
+  0% { top: 6px; opacity: 1; }
+  100% { top: 22px; opacity: 0; }
+}
+.scroll-indicator span {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Spider emblem floating behind hero */
+.spider-emblem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(500px, 80vw);
+  height: min(500px, 80vw);
+  opacity: 0.03;
+  z-index: 0;
+  pointer-events: none;
+  animation: emblemSpin 60s linear infinite;
+}
+@keyframes emblemSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════════════════
+   ABOUT SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.about-avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.about-avatar {
+  width: 280px;
+  height: 280px;
+  border-radius: 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  position: relative;
+  overflow: hidden;
+  transform: rotate(-3deg);
+  transition: transform 0.4s var(--transition-smooth);
+}
+.about-avatar:hover { transform: rotate(0deg) scale(1.03); }
+.about-avatar::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: var(--gradient-red-blue);
+  z-index: -1;
+  opacity: 0.5;
+}
+.about-avatar .avatar-web-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 30%, rgba(226,54,54,0.05) 30.5%, transparent 31%),
+    radial-gradient(circle at 50% 50%, transparent 60%, rgba(226,54,54,0.05) 60.5%, transparent 61%);
+  pointer-events: none;
+}
+
+.about-text h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: var(--gradient-red-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.about-text p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-size: 1.02rem;
+}
+.about-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.about-stat {
+  text-align: center;
+  padding: 16px 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  min-width: 100px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.about-stat:hover {
+  border-color: var(--red-primary);
+  transform: translateY(-4px);
+}
+.about-stat .stat-number {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: var(--gradient-red-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.about-stat .stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SKILLS SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.skills-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.skill-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--transition-smooth), border-color 0.4s, box-shadow 0.4s;
+}
+.skill-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--red-primary);
+  box-shadow: 0 12px 40px rgba(226, 54, 54, 0.12);
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-red-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--transition-smooth);
+}
+.skill-card:hover::before { transform: scaleX(1); }
+
+.skill-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  position: relative;
+}
+.skill-icon.python-icon {
+  background: rgba(55, 118, 171, 0.15);
+  border: 1px solid rgba(55, 118, 171, 0.3);
+}
+.skill-icon.cli-icon {
+  background: rgba(0, 191, 255, 0.1);
+  border: 1px solid rgba(0, 191, 255, 0.25);
+}
+.skill-icon.blender-icon {
+  background: rgba(234, 118, 0, 0.12);
+  border: 1px solid rgba(234, 118, 0, 0.25);
+}
+
+.skill-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.skill-card p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.skill-bar-wrapper {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  height: 8px;
+  overflow: hidden;
+}
+.skill-bar {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--gradient-red-blue);
+  width: 0;
+  transition: width 1.2s var(--transition-smooth);
+}
+
+.skill-level {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.skill-level span {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.skill-level .level-tag {
+  background: rgba(226, 54, 54, 0.12);
+  color: var(--red-primary);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOBBIES SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.hobby-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 36px 28px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--transition-smooth), border-color 0.4s, box-shadow 0.4s;
+}
+.hobby-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--red-primary);
+  box-shadow: 0 16px 48px rgba(226, 54, 54, 0.12);
+}
+.hobby-card .hobby-emoji {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+  transition: transform 0.4s;
+}
+.hobby-card:hover .hobby-emoji {
+  transform: scale(1.2) rotate(-5deg);
+}
+.hobby-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.hobby-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Special spider card */
+.hobby-card.spider-card {
+  border-color: rgba(226, 54, 54, 0.2);
+  background: rgba(226, 54, 54, 0.04);
+}
+.hobby-card.spider-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 20px;
+  background: var(--gradient-red-blue);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.hobby-card.spider-card:hover::before { opacity: 0.15; }
+.hobby-card.spider-card .hobby-emoji {
+  filter: drop-shadow(0 0 12px rgba(226, 54, 54, 0.4));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECTS SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+}
+@media (max-width: 480px) {
+  .projects-grid { grid-template-columns: 1fr; }
+}
+
+.project-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.4s var(--transition-smooth), border-color 0.4s, box-shadow 0.4s;
+  display: flex;
+  flex-direction: column;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--blue-primary);
+  box-shadow: 0 12px 40px rgba(30, 144, 255, 0.1);
+}
+
+.project-thumbnail {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+.project-thumbnail.proj-1 {
+  background: linear-gradient(135deg, rgba(226,54,54,0.15), rgba(30,144,255,0.10));
+}
+.project-thumbnail.proj-2 {
+  background: linear-gradient(135deg, rgba(30,144,255,0.15), rgba(0,191,255,0.10));
+}
+.project-thumbnail.proj-3 {
+  background: linear-gradient(135deg, rgba(234,118,0,0.15), rgba(226,54,54,0.10));
+}
+.project-thumbnail::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--glass-bg), transparent);
+}
+
+.project-info {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.project-info h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.project-info p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  flex: 1;
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.project-tags span {
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(226, 54, 54, 0.1);
+  border: 1px solid rgba(226, 54, 54, 0.15);
+  color: var(--red-primary);
+  font-weight: 500;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--blue-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: gap 0.3s;
+}
+.project-link:hover { gap: 10px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .contact-container { grid-template-columns: 1fr; }
+}
+
+.contact-info {
+  padding: 32px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.contact-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: var(--gradient-red-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.contact-info p {
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  transition: background 0.3s;
+}
+.contact-item:hover { background: rgba(226, 54, 54, 0.06); }
+.contact-item .contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(226, 54, 54, 0.1);
+  border: 1px solid rgba(226, 54, 54, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.contact-item-text .contact-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+.contact-item-text .contact-value {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form-group { position: relative; }
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-family: inherit;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-secondary); }
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--red-primary);
+  box-shadow: 0 0 0 3px rgba(226, 54, 54, 0.1);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.form-submit {
+  align-self: flex-start;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════ */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid var(--glass-border);
+}
+.footer p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+.footer .footer-heart {
+  color: var(--red-primary);
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.2); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.2); }
+  56% { transform: scale(1); }
+}
+.footer-spider {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.15);
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS — fade / reveal
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll-triggered reveals */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s var(--transition-smooth), transform 0.7s var(--transition-smooth);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOWING WEB LINES — TASM mechanical web-shooter style
+   ═══════════════════════════════════════════════════════════════ */
+.web-line {
+  position: absolute;
+  background: linear-gradient(to bottom, transparent, rgba(249,168,37,0.04), transparent);
+  width: 1px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* TASM-style electric border glow on focus/hover */
+.skill-card:hover,
+.hobby-card:hover,
+.project-card:hover {
+  box-shadow: 0 12px 40px rgba(198,40,40,0.10), 0 0 30px rgba(249,168,37,0.06);
+}
+.about-stat:hover {
+  border-color: var(--amber-eye);
+  box-shadow: 0 4px 16px rgba(249,168,37,0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .section-wrapper { padding: 70px 16px 40px; }
+  .about-stats { justify-content: center; }
+  .hero-name { letter-spacing: -1px; }
+  .skills-container { grid-template-columns: 1fr; }
+  .hobbies-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES CANVAS -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- LIGHTNING CANVAS — TASM2 Electro effect -->
+<canvas id="lightning-canvas"></canvas>
+
+<!-- LENS FLARE — TASM cinematic -->
+<div class="lens-flare" id="lens-flare"></div>
+
+<!-- SPIDER WEB BACKGROUND -->
+<div class="web-bg"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span class="spider-bracket">&lt;</span>PS<span class="spider-bracket">/&gt;</span>
+  </a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#hero" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <!-- TASM golden ambient glow -->
+  <div class="hero-glow-amber"></div>
+
+  <!-- Spider emblem watermark — TASM angular style -->
+  <svg class="spider-emblem" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="95" stroke="rgba(226,54,54,0.3)" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="70" stroke="rgba(226,54,54,0.2)" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="45" stroke="rgba(226,54,54,0.15)" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="20" stroke="rgba(226,54,54,0.1)" stroke-width="0.5"/>
+    <line x1="100" y1="0" x2="100" y2="200" stroke="rgba(226,54,54,0.15)" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(226,54,54,0.15)" stroke-width="0.5"/>
+    <line x1="15" y1="15" x2="185" y2="185" stroke="rgba(226,54,54,0.12)" stroke-width="0.5"/>
+    <line x1="185" y1="15" x2="15" y2="185" stroke="rgba(226,54,54,0.12)" stroke-width="0.5"/>
+    <!-- Spider body -->
+    <ellipse cx="100" cy="96" rx="8" ry="10" fill="rgba(226,54,54,0.25)"/>
+    <ellipse cx="100" cy="112" rx="10" ry="14" fill="rgba(226,54,54,0.25)"/>
+    <!-- Legs -->
+    <path d="M92 96 Q70 80 55 60" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M108 96 Q130 80 145 60" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M90 100 Q65 95 45 80" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M110 100 Q135 95 155 80" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M90 108 Q65 115 45 130" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M110 108 Q135 115 155 130" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M92 115 Q70 130 55 150" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+    <path d="M108 115 Q130 130 145 150" stroke="rgba(226,54,54,0.2)" stroke-width="1.5" fill="none"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      Available for collaboration
+    </div>
+
+    <h1 class="hero-name">
+      <span class="first-name">Pragam</span>
+      <span class="last-name">Sharma</span>
+    </h1>
+
+    <p class="hero-tagline">First Year Student at NST-RU &mdash; Curious mind, creative soul, and your friendly neighbourhood coder.</p>
+
+    <p class="hero-tasm-tag" style="font-size:0.8rem; color:var(--amber-eye); letter-spacing:4px; text-transform:uppercase; margin-bottom:18px; opacity:0.6; animation: fadeInUp 0.8s var(--transition-smooth) 0.45s both;">&#9889; The Untold Story &#9889;</p>
+
+    <div class="hero-typing">
+      <span id="typed-text"></span><span class="cursor-blink"></span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work &#8599;</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="mouse"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ABOUT SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="about">
+  <div class="section-wrapper">
+    <h2 class="section-title reveal">About Me</h2>
+    <p class="section-subtitle reveal reveal-delay-1">The untold story behind the mask</p>
+
+    <div class="about-grid">
+      <div class="about-avatar-wrapper reveal reveal-delay-2">
+        <div class="about-avatar">
+          🕷️
+          <div class="avatar-web-overlay"></div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <h3 class="reveal reveal-delay-2">Hey, I'm Pragam!</h3>
+        <p class="reveal reveal-delay-3">
+          A first-year student at <strong>NST-RU</strong> with an insatiable curiosity and a relentless drive to figure things out. Like a certain web-slinger who built his own web-shooters from scratch, I believe in earning your powers through grit, late nights, and an obsessive love for learning. No radioactive shortcuts — just raw ambition.
+        </p>
+        <p class="reveal reveal-delay-3">
+          When I'm not deep in code or sculpting worlds in Blender, you'll find me on the football pitch pulling off moves, filling sketchbooks with ideas, or singing like nobody's listening. I move fast, break things, learn from it, and come back stronger — every single time.
+        </p>
+
+        <div class="about-stats reveal reveal-delay-4">
+          <div class="about-stat">
+            <div class="stat-number" data-count="1">0</div>
+            <div class="stat-label">Year</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-number" data-count="3">0</div>
+            <div class="stat-label">Skills</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-number" data-count="4">0</div>
+            <div class="stat-label">Hobbies</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-number" data-count="99">0</div>
+            <div class="stat-label">% Passion</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SKILLS SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="skills">
+  <div class="section-wrapper">
+    <h2 class="section-title reveal">Skills & Arsenal</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Every hero needs the right tools</p>
+
+    <div class="skills-container">
+      <!-- Python -->
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-icon python-icon">🐍</div>
+        <h3>Python</h3>
+        <p>Building the foundation — scripting, problem-solving and learning the language that powers everything from AI to automation.</p>
+        <div class="skill-bar-wrapper">
+          <div class="skill-bar" data-width="40"></div>
+        </div>
+        <div class="skill-level">
+          <span>Learning &amp; Growing</span>
+          <span class="level-tag">Beginner</span>
+        </div>
+      </div>
+
+      <!-- CLI -->
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-icon cli-icon">⌨️</div>
+        <h3>Command Line (CLI)</h3>
+        <p>Navigating the terminal like a true hacker — file management, git commands and system operations at the speed of thought.</p>
+        <div class="skill-bar-wrapper">
+          <div class="skill-bar" data-width="35"></div>
+        </div>
+        <div class="skill-level">
+          <span>Building Muscle Memory</span>
+          <span class="level-tag">Beginner</span>
+        </div>
+      </div>
+
+      <!-- Blender -->
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-icon blender-icon">🎨</div>
+        <h3>Blender</h3>
+        <p>Shaping ideas into reality — 3D modelling, sculpting and bringing creative visions to life in three dimensions.</p>
+        <div class="skill-bar-wrapper">
+          <div class="skill-bar" data-width="45"></div>
+        </div>
+        <div class="skill-level">
+          <span>Creative Explorer</span>
+          <span class="level-tag">Beginner</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HOBBIES SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="hobbies">
+  <div class="section-wrapper">
+    <h2 class="section-title reveal">Hobbies & Passions</h2>
+    <p class="section-subtitle reveal reveal-delay-1">What I do when I'm not saving the city</p>
+
+    <div class="hobbies-grid">
+      <div class="hobby-card reveal reveal-delay-1">
+        <span class="hobby-emoji">⚽</span>
+        <h3>Football</h3>
+        <p>There's nothing like the rush of a perfect pass or a last-minute goal. The pitch is my battlefield — minus the supervillains.</p>
+      </div>
+
+      <div class="hobby-card reveal reveal-delay-2">
+        <span class="hobby-emoji">✏️</span>
+        <h3>Sketching</h3>
+        <p>From doodles in the margin to full portraits — my sketchbook is where imagination meets the page, one stroke at a time.</p>
+      </div>
+
+      <div class="hobby-card reveal reveal-delay-3">
+        <span class="hobby-emoji">🎤</span>
+        <h3>Singing</h3>
+        <p>Whether it's belting out classics or humming in the shower — music is the soundtrack to my life. Don't worry, I keep it mostly in tune.</p>
+      </div>
+
+      <div class="hobby-card spider-card reveal reveal-delay-4">
+        <span class="hobby-emoji">🕷️</span>
+        <h3>Saving the World</h3>
+        <p>Friendly neighbourhood hero, one day at a time! With great power comes great… homework. But somebody's gotta look out for the little guy. 🕸️</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROJECTS SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="projects">
+  <div class="section-wrapper">
+    <h2 class="section-title reveal">Projects</h2>
+    <p class="section-subtitle reveal reveal-delay-1">My web of creations</p>
+
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-thumbnail proj-1">🕸️</div>
+        <div class="project-info">
+          <h3>Portfolio Website</h3>
+          <p>This very portfolio — a cinematic Spider-Man inspired showcase built with pure HTML, CSS and JavaScript. Zero frameworks, maximum style.</p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+          <a href="#hero" class="project-link">View Live &#8599;</a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-thumbnail proj-2">🐍</div>
+        <div class="project-info">
+          <h3>Python Experiments</h3>
+          <p>A growing collection of Python scripts and mini-projects — from calculators to automation scripts. Every line of code is a step forward.</p>
+          <div class="project-tags">
+            <span>Python</span>
+            <span>Scripting</span>
+          </div>
+          <a href="#" class="project-link">Coming Soon &#8599;</a>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-thumbnail proj-3">🎨</div>
+        <div class="project-info">
+          <h3>3D Creations</h3>
+          <p>Blender renders and 3D models — from abstract art to character concepts. Turning imagination into polygons and pixels.</p>
+          <div class="project-tags">
+            <span>Blender</span>
+            <span>3D Art</span>
+            <span>Creative</span>
+          </div>
+          <a href="#" class="project-link">Coming Soon &#8599;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CONTACT SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="section-wrapper">
+    <h2 class="section-title reveal">Get In Touch</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Let's team up — even Spider-Man needs allies</p>
+
+    <div class="contact-container">
+      <div class="contact-info reveal reveal-delay-2">
+        <h3>Let's Connect</h3>
+        <p>Got an idea, a project, or just want to say hi? My spider-sense is always tingling for great opportunities. Drop me a message!</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <div class="contact-label">Location</div>
+            <div class="contact-value">NST-RU, India</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🎓</div>
+          <div class="contact-item-text">
+            <div class="contact-label">University</div>
+            <div class="contact-value">NST-RU &mdash; First Year</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">⚡</div>
+          <div class="contact-item-text">
+            <div class="contact-label">Status</div>
+            <div class="contact-value">Open to Collaborate</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal reveal-delay-3" onsubmit="handleContactSubmit(event)">
+        <div class="form-group">
+          <input type="text" placeholder="Your Name" required />
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Your Email" required />
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Subject" />
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Your Message..." required></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-primary">Send Message 🕸️</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <p>Crafted with <span class="footer-heart">♥</span> by Pragam Sharma &copy; 2026</p>
+  <p class="footer-spider">&#x1F578; With great power comes great responsibility &#x1F578;</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ─────────────────────────────────────────
+     PARTICLE SYSTEM
+     ───────────────────────────────────────── */
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let mouseX = -1000, mouseY = -1000;
+  const PARTICLE_COUNT = 80;
+  const CONNECTION_DIST = 140;
+  const MOUSE_RADIUS = 160;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.radius = Math.random() * 2 + 0.5;
+      this.baseAlpha = Math.random() * 0.4 + 0.1;
+      this.alpha = this.baseAlpha;
+      // Spider-Man palette
+      const colors = [
+        [226, 54, 54],   // red
+        [30, 144, 255],  // blue
+        [255, 77, 109],  // neon pink
+        [0, 191, 255],   // cyan
+        [200, 200, 220], // pale
+      ];
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+      // Mouse repulsion
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS) {
+        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
+        this.vx += (dx / dist) * force * 0.3;
+        this.vy += (dy / dist) * force * 0.3;
+      }
+
+      // Damping
+      this.vx *= 0.99;
+      this.vy *= 0.99;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new Particle());
+  }
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECTION_DIST) {
+          const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(226, 54, 54, ${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    drawConnections();
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  document.addEventListener('mouseleave', () => {
+    mouseX = -1000;
+    mouseY = -1000;
+  });
+
+  /* ─────────────────────────────────────────
+     TYPING EFFECT
+     ───────────────────────────────────────── */
+  const typedEl = document.getElementById('typed-text');
+  const phrases = [
+    '> Student. Creator. Dreamer.',
+    '> "I made a choice. This is my path."',
+    '> Building the future, one line at a time.',
+    '> Your friendly neighbourhood coder. 🕷️',
+    '> "The important thing is you\'re not alone."',
+    '> NST-RU | First Year | Infinite Ambition.',
+    '> "We all have secrets — the ones we keep and the ones kept from us."',
+  ];
+  let phraseIdx = 0, charIdx = 0, isDeleting = false;
+  const TYPE_SPEED = 60, DELETE_SPEED = 30, PAUSE_BEFORE_DELETE = 2000, PAUSE_BEFORE_TYPE = 400;
+
+  function type() {
+    const current = phrases[phraseIdx];
+    if (!isDeleting) {
+      typedEl.textContent = current.slice(0, charIdx + 1);
+      charIdx++;
+      if (charIdx === current.length) {
+        isDeleting = true;
+        setTimeout(type, PAUSE_BEFORE_DELETE);
+        return;
+      }
+      setTimeout(type, TYPE_SPEED);
+    } else {
+      typedEl.textContent = current.slice(0, charIdx - 1);
+      charIdx--;
+      if (charIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        setTimeout(type, PAUSE_BEFORE_TYPE);
+        return;
+      }
+      setTimeout(type, DELETE_SPEED);
+    }
+  }
+  setTimeout(type, 1000);
+
+  /* ─────────────────────────────────────────
+     NAVBAR
+     ───────────────────────────────────────── */
+  const navbar = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  const navAnchors = navLinks.querySelectorAll('a');
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  navAnchors.forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  /* Active link on scroll */
+  const sections = document.querySelectorAll('section[id]');
+  function updateActiveLink() {
+    const scrollY = window.scrollY + 200;
+    sections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      const id = sec.getAttribute('id');
+      const link = navLinks.querySelector(`a[href="#${id}"]`);
+      if (link) {
+        link.classList.toggle('active', scrollY >= top && scrollY < top + height);
+      }
+    });
+  }
+  window.addEventListener('scroll', updateActiveLink);
+
+  /* ─────────────────────────────────────────
+     SCROLL REVEAL
+     ───────────────────────────────────────── */
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  /* ─────────────────────────────────────────
+     SKILL BAR ANIMATION
+     ───────────────────────────────────────── */
+  const skillBars = document.querySelectorAll('.skill-bar');
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        bar.style.width = bar.dataset.width + '%';
+        skillObserver.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  skillBars.forEach(bar => skillObserver.observe(bar));
+
+  /* ─────────────────────────────────────────
+     STAT COUNTER ANIMATION
+     ───────────────────────────────────────── */
+  const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 40));
+        const interval = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          el.textContent = current;
+        }, 30);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  statNumbers.forEach(el => statObserver.observe(el));
+
+  /* ─────────────────────────────────────────
+     PARALLAX ON HERO
+     ───────────────────────────────────────── */
+  const heroContent = document.querySelector('.hero-content');
+  const spiderEmblem = document.querySelector('.spider-emblem');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY < window.innerHeight) {
+      const factor = scrollY * 0.3;
+      heroContent.style.transform = `translateY(${factor}px)`;
+      heroContent.style.opacity = 1 - scrollY / (window.innerHeight * 0.8);
+      spiderEmblem.style.transform = `translate(-50%, -50%) rotate(${scrollY * 0.05}deg) scale(${1 + scrollY * 0.0003})`;
+    }
+  });
+
+  /* ─────────────────────────────────────────
+     TILT EFFECT ON CARDS (desktop only)
+     ───────────────────────────────────────── */
+  if (window.matchMedia('(hover: hover)').matches) {
+    const tiltCards = document.querySelectorAll('.skill-card, .hobby-card, .project-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / centerY * -4;
+        const rotateY = (x - centerX) / centerX * 4;
+        card.style.transform = `translateY(-6px) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  /* ─────────────────────────────────────────
+     CONTACT FORM (visual only)
+     ───────────────────────────────────────── */
+  window.handleContactSubmit = function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Message Sent! 🕸️ ✓';
+    btn.style.pointerEvents = 'none';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.pointerEvents = '';
+      e.target.reset();
+    }, 3000);
+  };
+
+  /* ─────────────────────────────────────────
+     WEB SHOOTING EFFECT (click anywhere)
+     ───────────────────────────────────────── */
+  document.addEventListener('click', e => {
+    if (e.target.closest('a, button, input, textarea')) return;
+    for (let i = 0; i < 6; i++) {
+      const spark = document.createElement('div');
+      spark.style.cssText = `
+        position: fixed;
+        left: ${e.clientX}px;
+        top: ${e.clientY}px;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: ${Math.random() > 0.5 ? '#e23636' : '#1e90ff'};
+        pointer-events: none;
+        z-index: 9999;
+        transition: all 0.6s ease-out;
+        box-shadow: 0 0 6px ${Math.random() > 0.5 ? 'rgba(226,54,54,0.6)' : 'rgba(30,144,255,0.6)'};
+      `;
+      document.body.appendChild(spark);
+      const angle = (Math.PI * 2 / 6) * i + Math.random() * 0.5;
+      const dist = 40 + Math.random() * 60;
+      requestAnimationFrame(() => {
+        spark.style.left = (e.clientX + Math.cos(angle) * dist) + 'px';
+        spark.style.top = (e.clientY + Math.sin(angle) * dist) + 'px';
+        spark.style.opacity = '0';
+        spark.style.transform = 'scale(0.2)';
+      });
+      setTimeout(() => spark.remove(), 700);
+    }
+  });
+
+  /* ─────────────────────────────────────────
+     SMOOTH SCROLL POLYFILL for Safari
+     ───────────────────────────────────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
+
