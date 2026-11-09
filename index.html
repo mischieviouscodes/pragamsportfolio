@@ -675,9 +675,583 @@ body{
   .skills-grid,.hobbies-grid{grid-template-columns:1fr}
   .about-avatar{width:220px;height:220px;font-size:4.5rem}
 }
+
+/*═══════════════════════════════════════════════════════════
+  THE AMAZING SPIDER-MAN 2 — CINEMATIC VIDEO INTRO
+═══════════════════════════════════════════════════════════*/
+body.intro-active{
+  overflow:hidden !important;
+}
+
+.tasm-video-intro{
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  background:#020205;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.9s;
+}
+
+.tasm-video-intro.dismissed{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+/* Responsive 16:9 Fullscreen Video Viewport (Movie Clip) */
+.tasm-video-viewport{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:1;
+  background:#000000;
+}
+
+.tasm-video-viewport video,
+.tasm-video-viewport iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:100vw;
+  height:56.25vw; /* 16:9 ratio */
+  min-height:100vh;
+  min-width:177.77vh; /* 16:9 ratio */
+  border:none;
+  outline:none;
+  z-index:2;
+  object-fit:cover;
+  filter:contrast(1.05) saturate(1.15) brightness(0.96);
+  transition:opacity 0.4s ease;
+}
+
+/* Play Movie Overlay (If browser pauses autoplay) */
+.tasm-play-overlay{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.45);
+  cursor:pointer;
+  transition:background 0.3s;
+}
+.tasm-play-overlay.show{
+  display:flex;
+}
+.tasm-play-overlay:hover{
+  background:rgba(0,0,0,0.25);
+}
+.tasm-play-btn-circle{
+  width:84px;
+  height:84px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--red), var(--blue));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 40px rgba(229,57,53,0.7), 0 0 80px rgba(41,121,255,0.4);
+  animation:playBtnPulse 2s infinite ease-in-out;
+  transition:transform 0.3s;
+}
+.tasm-play-btn-circle:hover{
+  transform:scale(1.12);
+}
+@keyframes playBtnPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+}
+.tasm-play-btn-circle svg{
+  width:34px;
+  height:34px;
+  fill:#ffffff;
+  margin-left:4px;
+}
+
+/* Auto-open countdown status indicator */
+.tasm-countdown-status{
+  font-size:0.8rem;
+  letter-spacing:2px;
+  color:var(--amber);
+  text-transform:uppercase;
+  font-weight:700;
+  text-shadow:0 0 15px rgba(255,179,0,0.6);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.tasm-countdown-status .status-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#00e5ff;
+  box-shadow:0 0 10px #00e5ff;
+  animation:dotPulse 1.2s infinite;
+}
+  box-shadow:0 0 15px rgba(229,57,53,0.4);
+}
+
+/* Cinematic Anamorphic Letterbox Bars (Top & Bottom) */
+.tasm-letterbox{
+  position:absolute;
+  left:0;
+  right:0;
+  height:8vh;
+  background:#000000;
+  z-index:10;
+  transition:transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow:0 0 35px rgba(0,0,0,0.9);
+  pointer-events:none;
+}
+.tasm-letterbox.top{
+  top:0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.tasm-letterbox.bottom{
+  bottom:0;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.tasm-video-intro.dismissed .tasm-letterbox.top{
+  transform:translateY(-100%);
+}
+.tasm-video-intro.dismissed .tasm-letterbox.bottom{
+  transform:translateY(100%);
+}
+
+/* Cinematic Film Vignette & Texture (Lightened so video/canvas shines through) */
+.tasm-vignette{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  background:radial-gradient(circle at center, transparent 45%, rgba(4, 5, 12, 0.45) 80%, rgba(2, 2, 6, 0.85) 100%);
+  pointer-events:none;
+}
+
+.tasm-vignette::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+  opacity:0.35;
+  pointer-events:none;
+}
+
+/* Studio Branding Header */
+.tasm-header-bar{
+  position:absolute;
+  top:10vh;
+  left:0;
+  right:0;
+  z-index:15;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 5vw;
+  pointer-events:none;
+}
+
+.tasm-studio-tag{
+  font-size:0.75rem;
+  letter-spacing:4px;
+  color:rgba(255, 255, 255, 0.65);
+  text-transform:uppercase;
+  font-weight:700;
+  text-shadow:0 0 15px rgba(255,255,255,0.3);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.tasm-studio-tag::before{
+  content:'';
+  display:inline-block;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 10px var(--red);
+  animation:dotPulse 1.8s infinite;
+}
+
+.tasm-movie-badge{
+  font-size:0.72rem;
+  padding:5px 14px;
+  border-radius:999px;
+  background:rgba(229,57,53,0.15);
+  border:1px solid rgba(229,57,53,0.4);
+  color:#ff8a80;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-weight:600;
+  backdrop-filter:blur(8px);
+}
+
+/* Center Cinematic Title Card */
+.tasm-center-title{
+  position:relative;
+  z-index:15;
+  text-align:center;
+  padding:0 20px;
+  pointer-events:none;
+  animation:introFloat 5s ease-in-out infinite;
+  max-width:850px;
+}
+@keyframes introFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+.tasm-intro-spider-logo{
+  width:68px;
+  height:68px;
+  margin:0 auto 16px;
+  filter:drop-shadow(0 0 25px rgba(229,57,53,0.8)) drop-shadow(0 0 45px rgba(41,121,255,0.5));
+  animation:spiderEmblemBeat 2.2s infinite ease-in-out;
+}
+@keyframes spiderEmblemBeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.1) rotate(2deg)}
+}
+
+.tasm-series-title{
+  font-size:clamp(0.85rem, 2vw, 1.15rem);
+  color:var(--amber);
+  letter-spacing:8px;
+  text-transform:uppercase;
+  font-weight:800;
+  margin-bottom:8px;
+  text-shadow:0 0 20px rgba(255,179,0,0.5);
+}
+
+.tasm-main-name{
+  font-size:clamp(2.6rem, 7.5vw, 5.2rem);
+  font-weight:900;
+  line-height:1.05;
+  letter-spacing:-2px;
+  text-transform:uppercase;
+  background:linear-gradient(135deg, #ffffff 0%, #ff5252 35%, #ffd54f 65%, #448aff 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:triGradient 4s ease-in-out infinite;
+  filter:drop-shadow(0 0 35px rgba(229,57,53,0.6));
+}
+
+.tasm-quote-tag{
+  font-size:clamp(0.85rem, 1.8vw, 1.1rem);
+  color:rgba(255, 255, 255, 0.75);
+  font-style:italic;
+  margin-top:12px;
+  letter-spacing:1px;
+  text-shadow:0 2px 10px rgba(0,0,0,0.8);
+}
+
+.tasm-sub-badges{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+.tasm-sub-pill{
+  font-size:0.75rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:5px 15px;
+  border-radius:6px;
+  background:rgba(12, 16, 32, 0.7);
+  border:1px solid rgba(255,255,255,0.12);
+  color:var(--cyan);
+  backdrop-filter:blur(8px);
+}
+
+/* Bottom Cinematic HUD Controls */
+.tasm-hud-bottom{
+  position:absolute;
+  bottom:11vh;
+  left:0;
+  right:0;
+  z-index:20;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  padding:0 24px;
+}
+
+.tasm-hud-controls{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.tasm-btn-audio,
+.tasm-btn-enter,
+.tasm-btn-change{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 28px;
+  border-radius:12px;
+  font-size:0.92rem;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  transition:all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  border:none;
+}
+
+.tasm-btn-enter{
+  background:linear-gradient(135deg, #e53935 0%, #2979ff 100%);
+  color:#ffffff;
+  box-shadow:0 0 30px rgba(229,57,53,0.5), 0 0 60px rgba(41,121,255,0.3);
+  position:relative;
+  overflow:hidden;
+}
+.tasm-btn-enter:hover{
+  transform:scale(1.06) translateY(-2px);
+  box-shadow:0 0 45px rgba(229,57,53,0.7), 0 0 80px rgba(41,121,255,0.5);
+}
+
+.tasm-btn-audio{
+  background:rgba(20, 24, 48, 0.75);
+  border:1px solid rgba(255, 179, 0, 0.35);
+  color:var(--amber);
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 20px rgba(255,179,0,0.12);
+}
+.tasm-btn-audio:hover{
+  background:rgba(255, 179, 0, 0.15);
+  border-color:var(--amber);
+  transform:translateY(-2px);
+  box-shadow:0 0 30px rgba(255,179,0,0.25);
+}
+
+.tasm-btn-audio .audio-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:14px;
+}
+.tasm-btn-audio .audio-bars span{
+  width:3px;
+  background:var(--amber);
+  border-radius:1px;
+  animation:audioWave 1.2s infinite ease-in-out;
+}
+.tasm-btn-audio.muted .audio-bars span{
+  animation:none;
+  height:3px !important;
+  opacity:0.4;
+}
+.tasm-btn-audio .audio-bars span:nth-child(1){height:8px; animation-delay:0s}
+.tasm-btn-audio .audio-bars span:nth-child(2){height:14px; animation-delay:0.2s}
+.tasm-btn-audio .audio-bars span:nth-child(3){height:10px; animation-delay:0.4s}
+@keyframes audioWave{
+  0%,100%{height:4px}
+  50%{height:14px}
+}
+
+.tasm-btn-change{
+  background:rgba(12, 14, 26, 0.6);
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.65);
+  font-size:0.75rem;
+  padding:10px 18px;
+}
+.tasm-btn-change:hover{
+  color:#fff;
+  border-color:var(--cyan);
+  background:rgba(0, 229, 255, 0.1);
+}
+
+/* Timeline progress */
+.tasm-timeline-bar{
+  width:min(500px, 85vw);
+  height:3px;
+  background:rgba(255,255,255,0.12);
+  border-radius:3px;
+  overflow:hidden;
+  position:relative;
+}
+.tasm-timeline-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, var(--red), var(--amber), var(--blue));
+  border-radius:3px;
+  transition:width 0.2s linear;
+}
+
+.tasm-hud-hint{
+  font-size:0.72rem;
+  color:rgba(255, 255, 255, 0.4);
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* Web Flash Transition Effect */
+.tasm-flash-bang{
+  position:absolute;
+  inset:0;
+  z-index:9999999;
+  background:#ffffff;
+  opacity:0;
+  pointer-events:none;
+}
+.tasm-flash-bang.fire{
+  animation:flashBang 0.75s ease-out forwards;
+}
+
+/* Navbar TASM 2 Intro Replay Button */
+.nav-intro-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(229, 57, 53, 0.12);
+  border:1px solid rgba(229, 57, 53, 0.35);
+  color:#ff8a80;
+  padding:6px 14px;
+  border-radius:8px;
+  font-size:0.82rem;
+  font-weight:700;
+  letter-spacing:0.5px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  backdrop-filter:blur(8px);
+}
+.nav-intro-btn:hover{
+  background:linear-gradient(135deg, var(--red), var(--blue));
+  color:#ffffff;
+  border-color:transparent;
+  transform:translateY(-2px);
+  box-shadow:0 4px 20px rgba(229,57,53,0.4);
+}
+.nav-intro-btn .btn-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#ff5252;
+  box-shadow:0 0 8px #ff5252;
+  animation:dotPulse 1.8s infinite;
+}
+
+@media(max-width:768px){
+  .tasm-header-bar{top:9vh; padding:0 4vw;}
+  .tasm-hud-bottom{bottom:9vh; gap:12px;}
+  .tasm-btn-enter{padding:10px 20px; font-size:0.82rem;}
+  .tasm-btn-audio{padding:10px 18px; font-size:0.82rem;}
+  .tasm-studio-tag{font-size:0.65rem; letter-spacing:2px;}
+  .tasm-letterbox{height:7vh;}
+}
 </style>
 </head>
-<body>
+<body class="intro-active">
+
+<!-- ═══════════════ THE AMAZING SPIDER-MAN 2 CINEMATIC INTRO ═══════════════ -->
+<div class="tasm-video-intro" id="tasm-video-intro">
+  <!-- Anamorphic Letterbox Bars -->
+  <div class="tasm-letterbox top"></div>
+  <div class="tasm-letterbox bottom"></div>
+
+  <!-- Background Video Viewport (The Amazing Spider-Man 2 Movie Clip) -->
+  <div class="tasm-video-viewport" id="tasm-viewport">
+    <!-- Local Official TASM 2 Movie Clip (Instant 4K/HD playback, zero black screens, 100% reliable) -->
+    <video id="tasm-video-player" src="tasm2.mp4" playsinline muted autoplay></video>
+
+    <!-- YouTube Fallback Stream (Official Movieclip: gNPy_CO4zqA) -->
+    <iframe id="tasm-yt-player" 
+      src="https://www.youtube.com/embed/gNPy_CO4zqA?enablejsapi=1&autoplay=1&mute=1&controls=0&loop=0&rel=0&playsinline=1" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+      style="display:none;">
+    </iframe>
+
+    <!-- Tap to Play / Unmute Button Overlay if browser stopped autoplay -->
+    <div class="tasm-play-overlay" id="tasm-play-overlay" onclick="startMoviePlayback()">
+      <div class="tasm-play-btn-circle" title="Click to Play Movie Clip">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Film Texture & Dark Vignette -->
+  <div class="tasm-vignette"></div>
+
+  <!-- Hidden File Input for Custom Local Video -->
+  <input type="file" id="tasm-video-file-picker" accept="video/mp4,video/webm,video/mov" style="display:none;" onchange="handleTasmVideoFile(event)">
+
+  <!-- Top Studio Bar with Auto-Open Status -->
+  <div class="tasm-header-bar">
+    <div class="tasm-studio-tag">Columbia Pictures • Marvel Entertainment</div>
+    <div class="tasm-countdown-status">
+      <span class="status-dot"></span>
+      <span id="tasm-status-txt">Playing Movie Clip • Auto-opening portfolio</span>
+    </div>
+  </div>
+
+  <!-- Centerpiece Title Card -->
+  <div class="tasm-center-title" id="tasm-center-title">
+    <div class="tasm-intro-spider-logo">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="46" rx="9" ry="12" fill="#e53935"/>
+        <ellipse cx="50" cy="65" rx="11" ry="17" fill="#e53935"/>
+        <!-- Long Spider Legs (TASM 2 suit emblem style) -->
+        <path d="M42 44 Q20 28 8 10" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M58 44 Q80 28 92 10" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M40 48 Q15 42 4 32" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M60 48 Q85 42 96 32" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M40 56 Q15 64 6 82" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M60 56 Q85 64 94 82" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M42 66 Q24 82 14 96" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M58 66 Q76 82 86 96" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="tasm-series-title">The Amazing Spider-Man Universe</div>
+    <h1 class="tasm-main-name">Pragam Sharma</h1>
+    <p class="tasm-quote-tag">"Every day I wake up knowing that the more people I try to save, the more enemies I will make."</p>
+    <div class="tasm-sub-badges">
+      <span class="tasm-sub-pill">Andrew Garfield Edit</span>
+      <span class="tasm-sub-pill">NST-RU • First Year</span>
+      <span class="tasm-sub-pill">Hans Zimmer Theme</span>
+    </div>
+  </div>
+
+  <!-- Bottom HUD -->
+  <div class="tasm-hud-bottom">
+    <div class="tasm-hud-controls">
+      <button class="tasm-btn-audio muted" id="tasm-sound-toggle" onclick="toggleTasmAudio()" title="Toggle movie audio">
+        <div class="audio-bars">
+          <span></span><span></span><span></span>
+        </div>
+        <span id="tasm-sound-text">Sound: Muted (Click to Unmute)</span>
+      </button>
+
+      <button class="tasm-btn-enter" onclick="dismissTasmIntro()">
+        <span>Enter Spider-Verse</span>
+        <span>↗</span>
+      </button>
+    </div>
+
+    <!-- Timeline Progress -->
+    <div class="tasm-timeline-bar">
+      <div class="tasm-timeline-fill" id="tasm-timeline-fill"></div>
+    </div>
+    <div class="tasm-hud-hint">Press <strong>[ESC]</strong> or <strong>[SPACE]</strong> to Skip Intro</div>
+  </div>
+
+  <!-- White Flash Web-Shoot Transition -->
+  <div class="tasm-flash-bang" id="tasm-flash"></div>
+</div>
 
 <!-- BACKGROUND CANVAS (particles + web connections) -->
 <canvas id="bg-canvas"></canvas>
@@ -751,6 +1325,7 @@ body{
     <li><a href="#hobbies">Hobbies</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><button class="nav-intro-btn" onclick="openTasmIntro()" title="Watch The Amazing Spider-Man 2 Swinging Scene Intro"><span class="btn-dot"></span>🎬 Movie Intro</button></li>
   </ul>
 </nav>
 
@@ -957,6 +1532,220 @@ body{
 
 <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
 <script>
+/* ─── THE AMAZING SPIDER-MAN 2 MOVIE CLIP INTRO CONTROLLER ─── */
+let isTasmAudioMuted = true;
+let movieTotalDuration = 45; // Default clip duration in seconds
+let ytPlayer = null;
+
+// Initialize Video Setup on Page Load
+document.addEventListener('DOMContentLoaded', initMovieIntro);
+
+function initMovieIntro() {
+  const video = document.getElementById('tasm-video-player');
+  const overlay = document.getElementById('tasm-play-overlay');
+  
+  if (video) {
+    // Read video metadata when loaded
+    video.addEventListener('loadedmetadata', function() {
+      if (video.duration && !isNaN(video.duration)) {
+        movieTotalDuration = video.duration;
+      }
+    });
+
+    // Update real-time progress & countdown
+    video.addEventListener('timeupdate', function() {
+      if (video.duration) {
+        const remaining = Math.max(0, Math.ceil(video.duration - video.currentTime));
+        const pct = (video.currentTime / video.duration) * 100;
+        const bar = document.getElementById('tasm-timeline-fill');
+        const statusTxt = document.getElementById('tasm-status-txt');
+        
+        if (bar) bar.style.width = pct + '%';
+        if (statusTxt) {
+          statusTxt.textContent = `Playing TASM 2 Movie Clip • Auto-opening in ${remaining}s`;
+        }
+      }
+    });
+
+    // AUTO-OPEN PORTFOLIO WHEN MOVIE CLIP FINISHES
+    video.addEventListener('ended', function() {
+      dismissTasmIntro();
+    });
+
+    // Handle video load errors (fallback to YouTube stream)
+    video.addEventListener('error', function(err) {
+      console.warn('Local video load failed, switching to YouTube stream:', err);
+      switchToYouTubeFallback();
+    });
+
+    // Start video playback
+    video.play().catch(function(err) {
+      console.log('Browser autoplay policy held video, showing play overlay:', err);
+      if (overlay) overlay.classList.add('show');
+    });
+  }
+}
+
+// YouTube Fallback (only used if local tasm2.mp4 is missing)
+function switchToYouTubeFallback() {
+  const video = document.getElementById('tasm-video-player');
+  const iframe = document.getElementById('tasm-yt-player');
+  if (video) video.style.display = 'none';
+  if (iframe) {
+    iframe.style.display = 'block';
+    startFallbackTimeline();
+  }
+}
+
+function startFallbackTimeline() {
+  const bar = document.getElementById('tasm-timeline-fill');
+  const statusTxt = document.getElementById('tasm-status-txt');
+  const startTime = Date.now();
+  
+  const timer = setInterval(function() {
+    const elapsed = (Date.now() - startTime) / 1000;
+    const remaining = Math.max(0, Math.ceil(movieTotalDuration - elapsed));
+    const pct = Math.min(100, (elapsed / movieTotalDuration) * 100);
+    
+    if (bar) bar.style.width = pct + '%';
+    if (statusTxt) statusTxt.textContent = `Playing TASM 2 Movie Clip • Auto-opening in ${remaining}s`;
+    
+    if (elapsed >= movieTotalDuration) {
+      clearInterval(timer);
+      dismissTasmIntro();
+    }
+  }, 250);
+}
+
+// User-Triggered Start (bypasses browser autoplay restrictions)
+window.startMoviePlayback = function() {
+  const overlay = document.getElementById('tasm-play-overlay');
+  const video = document.getElementById('tasm-video-player');
+  if (overlay) overlay.classList.remove('show');
+  
+  if (video && video.style.display !== 'none') {
+    video.muted = false;
+    isTasmAudioMuted = false;
+    video.play();
+    updateSoundButtonUI(false);
+  }
+};
+
+// Sound Toggle
+window.toggleTasmAudio = function() {
+  const video = document.getElementById('tasm-video-player');
+  isTasmAudioMuted = !isTasmAudioMuted;
+  
+  if (video && video.style.display !== 'none') {
+    video.muted = isTasmAudioMuted;
+  }
+  updateSoundButtonUI(isTasmAudioMuted);
+};
+
+function updateSoundButtonUI(muted) {
+  const btn = document.getElementById('tasm-sound-toggle');
+  const txt = document.getElementById('tasm-sound-text');
+  
+  if (!muted) {
+    if (btn) btn.classList.remove('muted');
+    if (txt) txt.textContent = 'Sound: ON (Movie Audio)';
+  } else {
+    if (btn) btn.classList.add('muted');
+    if (txt) txt.textContent = 'Sound: Muted (Click to Unmute)';
+  }
+}
+
+// Dismiss Intro & Smoothly Transition into Portfolio
+window.dismissTasmIntro = function() {
+  const intro = document.getElementById('tasm-video-intro');
+  const flash = document.getElementById('tasm-flash');
+  const video = document.getElementById('tasm-video-player');
+  
+  if (flash) {
+    flash.classList.remove('fire');
+    void flash.offsetWidth;
+    flash.classList.add('fire');
+  }
+  
+  setTimeout(function() {
+    if (intro) intro.classList.add('dismissed');
+    document.body.classList.remove('intro-active');
+    if (video) video.pause();
+  }, 220);
+};
+
+// Replay Movie Intro from Navbar
+window.openTasmIntro = function() {
+  const intro = document.getElementById('tasm-video-intro');
+  const video = document.getElementById('tasm-video-player');
+  
+  if (intro) {
+    intro.classList.remove('dismissed');
+    document.body.classList.add('intro-active');
+    
+    if (video && video.style.display !== 'none') {
+      video.currentTime = 0;
+      video.play();
+    }
+  }
+};
+
+// Drag and drop video file support
+window.handleTasmVideoFile = function(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  loadCustomVideoFile(file);
+};
+
+function loadCustomVideoFile(file) {
+  const video = document.getElementById('tasm-video-player');
+  const iframe = document.getElementById('tasm-yt-player');
+  if (iframe) iframe.style.display = 'none';
+  if (video) {
+    video.style.display = 'block';
+    video.src = URL.createObjectURL(file);
+    video.muted = isTasmAudioMuted;
+    video.play();
+  }
+}
+
+window.addEventListener('dragover', function(e) { e.preventDefault(); });
+window.addEventListener('drop', function(e) {
+  const intro = document.getElementById('tasm-video-intro');
+  if (intro && !intro.classList.contains('dismissed')) {
+    e.preventDefault();
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      if (file.type.startsWith('video/')) {
+        loadCustomVideoFile(file);
+      }
+    }
+  }
+});
+
+// ESC or Spacebar to instantly enter portfolio
+window.addEventListener('keydown', function(e) {
+  const intro = document.getElementById('tasm-video-intro');
+  if (intro && !intro.classList.contains('dismissed')) {
+    if (e.key === 'Escape' || e.code === 'Space') {
+      e.preventDefault();
+      dismissTasmIntro();
+    }
+  }
+});
+
+(function(){
+'use strict';
+
+/* ─── BACKGROUND CANVAS: particles + web connections ─── */
+  if (intro && !intro.classList.contains('dismissed')) {
+    if (e.key === 'Escape' || e.code === 'Space') {
+      e.preventDefault();
+      dismissTasmIntro();
+    }
+  }
+});
+
 (function(){
 'use strict';
 
