@@ -3,332 +3,521 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pragam Sharma | Spider-Verse Portfolio</title>
+<title>Pragam Sharma | कुरुक्षेत्र Portfolio</title>
+<!-- Google Fonts — Ancient / Devanagari-inspired typefaces -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+
 <style>
 /*═══════════════════════════════════════════════════════════
-  RESET & VARIABLES
+  RESET & DARK MAHABHARATA PALETTE
 ═══════════════════════════════════════════════════════════*/
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#06060e;
-  --card:rgba(12,12,28,.55);
-  --red:#e53935;--red-g:rgba(229,57,53,.6);
-  --blue:#2979ff;--blue-g:rgba(41,121,255,.6);
-  --amber:#ffb300;--amber-g:rgba(255,179,0,.5);
-  --cyan:#00e5ff;--magenta:#ff1744;
-  --purple:#d500f9;--lime:#c6ff00;
-  --txt:#f0f0f8;--txt2:#9898b4;
-  --glass:rgba(16,16,36,.5);--border:rgba(255,255,255,.08);
-  --grad:linear-gradient(135deg,var(--red),var(--blue));
-  --grad2:linear-gradient(135deg,var(--red),var(--amber));
-  --grad3:linear-gradient(135deg,var(--blue),var(--cyan));
-  --ease:cubic-bezier(.25,.46,.45,.94);
-  --perspective:1200px;
+  --bg:#060507;
+  --bg2:#0e0c12;
+  --card:rgba(12,10,16,.78);
+  --saffron:#e06b10;--saffron-g:rgba(224,107,16,.45);
+  --gold:#c49516;--gold-g:rgba(196,149,22,.45);
+  --crimson:#9b1b1b;--crimson-g:rgba(155,27,27,.45);
+  --maroon:#520d14;
+  --earth:#6e5410;
+  --copper:#9a5f2a;
+  --cream:#e8d8c0;
+  --ochre:#b06a1e;
+  --divine:#dbb520;
+  --peacock:#14603c;
+  --txt:#ddd0b8;--txt2:#7a6a55;
+  --glass:rgba(12,10,16,.72);--border:rgba(196,149,22,.09);
+  --grad:linear-gradient(135deg,var(--saffron),var(--crimson));
+  --grad2:linear-gradient(135deg,var(--gold),var(--saffron));
+  --grad3:linear-gradient(135deg,var(--crimson),var(--maroon));
+  --grad-divine:linear-gradient(135deg,var(--divine),var(--saffron),var(--crimson));
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --font-heading:'Cinzel Decorative','Cinzel',serif;
+  --font-sub:'Cinzel',serif;
+  --font-deva:'Yatra One','Tiro Devanagari Hindi',serif;
+  --font-body:'Tiro Devanagari Hindi',Georgia,serif;
+  /* Shadows */
+  --shadow-brutal:0 8px 40px rgba(0,0,0,.7),0 2px 8px rgba(0,0,0,.5);
+  --shadow-card:0 4px 24px rgba(0,0,0,.6),0 1px 4px rgba(0,0,0,.4);
+  --shadow-hover:0 12px 48px rgba(0,0,0,.8),0 0 32px rgba(196,149,22,.06);
 }
-html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--red) var(--bg)}
-html::-webkit-scrollbar{width:6px}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--saffron) var(--bg)}
+html::-webkit-scrollbar{width:5px}
 html::-webkit-scrollbar-track{background:var(--bg)}
-html::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+html::-webkit-scrollbar-thumb{background:var(--saffron);border-radius:3px}
 body{
-  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  font-family:var(--font-body);
   background:var(--bg);color:var(--txt);
   overflow-x:hidden;line-height:1.6;
-  perspective:var(--perspective);
 }
 
 /*═══════════════════════════════════════════════════════════
-  ANIMATED CARTOON SPIDER-MAN (SVG + CSS)
+  SMOOTH PARALLAX SCROLLING ROOT
 ═══════════════════════════════════════════════════════════*/
-.spidey-container{
-  position:fixed;z-index:9998;pointer-events:none;
-  width:100%;height:100%;top:0;left:0;
+
+/*═══════════════════════════════════════════════════════════
+  MAHABHARATA LOADING ANIMATION
+═══════════════════════════════════════════════════════════*/
+body.intro-active{overflow:hidden !important}
+
+.mahabharat-intro{
+  position:fixed;inset:0;z-index:999999;
+  background:#040305;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;overflow:hidden;
+  transition:opacity 1s ease, visibility 1s;
 }
-/* The web line */
-.spidey-web-line{
-  position:absolute;top:0;width:2px;
-  background:linear-gradient(to bottom,rgba(255,255,255,.8),rgba(255,255,255,.1));
-  transform-origin:top center;z-index:9997;
-  filter:drop-shadow(0 0 4px rgba(255,255,255,.4));
+.mahabharat-intro.dismissed{
+  opacity:0;visibility:hidden;pointer-events:none;
 }
-/* The spidey character */
-.spidey-char{
-  position:absolute;z-index:9998;
-  width:90px;height:90px;
-  transition:transform .1s linear;
-  filter:drop-shadow(0 0 20px var(--red-g)) drop-shadow(0 0 40px rgba(41,121,255,.3));
+
+/* Sacred geometry background */
+.intro-sacred-bg{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
 }
-.spidey-char svg{width:100%;height:100%}
-/* Swing animation */
-@keyframes spideySwing{
-  0%{transform:rotate(-25deg)}
-  50%{transform:rotate(25deg)}
-  100%{transform:rotate(-25deg)}
+.intro-sacred-bg::before{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:500px;height:500px;
+  border:1px solid rgba(196,149,22,.06);border-radius:50%;
+  box-shadow:
+    0 0 0 40px rgba(196,149,22,.03),
+    0 0 0 80px rgba(196,149,22,.02),
+    0 0 0 120px rgba(196,149,22,.015),
+    0 0 0 160px rgba(196,149,22,.01);
+  animation:sacredSpin 30s linear infinite;
 }
-.spidey-char.swinging{
-  animation:spideySwing 2s ease-in-out infinite;
-  transform-origin:top center;
+@keyframes sacredSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.intro-sacred-bg::after{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);
+  width:350px;height:350px;
+  border:1px solid rgba(224,107,16,.04);
+  animation:sacredSpin 20s linear infinite reverse;
 }
-/* Small spidey for mobile */
-@media(max-width:768px){
-  .spidey-char{width:60px;height:60px}
+
+/* Om symbol */
+.intro-om{
+  font-size:clamp(4.5rem,14vw,9rem);
+  color:var(--divine);
+  text-shadow:0 0 50px rgba(219,181,32,.35),0 0 100px rgba(224,107,16,.15);
+  animation:omPulse 3s ease-in-out infinite, omFadeIn 1.5s ease both;
+  font-family:var(--font-deva);
+  z-index:2;
+}
+@keyframes omPulse{
+  0%,100%{text-shadow:0 0 50px rgba(219,181,32,.35),0 0 100px rgba(224,107,16,.15);transform:scale(1)}
+  50%{text-shadow:0 0 80px rgba(219,181,32,.55),0 0 160px rgba(224,107,16,.3);transform:scale(1.04)}
+}
+@keyframes omFadeIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+/* Loading Shloka text */
+.intro-shloka{
+  font-family:var(--font-deva);
+  font-size:clamp(.9rem,2.3vw,1.2rem);
+  color:var(--gold);
+  text-align:center;
+  max-width:660px;
+  padding:0 20px;
+  margin-top:16px;
+  opacity:0;
+  animation:shlokaFade 1.5s ease 1s both;
+  z-index:2;
+  line-height:1.7;
+  text-shadow:0 0 16px rgba(196,149,22,.25);
+}
+@keyframes shlokaFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.intro-shloka-meaning{
+  font-family:var(--font-sub);
+  font-size:clamp(.75rem,1.6vw,.9rem);
+  color:var(--txt2);
+  text-align:center;
+  max-width:560px;
+  padding:0 20px;
+  margin-top:8px;
+  opacity:0;
+  animation:shlokaFade 1.5s ease 2s both;
+  z-index:2;
+  font-style:italic;
+  letter-spacing:1px;
+}
+
+/* Loading bar — divine progress */
+.intro-progress-wrap{
+  width:min(360px,78vw);height:2px;
+  background:rgba(196,149,22,.08);
+  border-radius:2px;overflow:hidden;
+  margin-top:32px;
+  z-index:2;
+  opacity:0;
+  animation:shlokaFade 1s ease 2.5s both;
+}
+.intro-progress-bar{
+  height:100%;width:0%;
+  background:var(--grad-divine);
+  border-radius:2px;
+  transition:width .3s linear;
+}
+
+.intro-subtitle{
+  font-family:var(--font-sub);
+  font-size:.7rem;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:rgba(196,149,22,.4);
+  margin-top:12px;z-index:2;
+  opacity:0;
+  animation:shlokaFade 1s ease 3s both;
+}
+
+/* Enter button */
+.intro-enter-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 32px;border-radius:10px;
+  font-family:var(--font-sub);
+  font-size:.88rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  background:var(--grad);color:#fff;
+  border:none;cursor:pointer;
+  box-shadow:0 0 30px var(--saffron-g),0 0 60px rgba(155,27,27,.15);
+  transition:all .25s ease;
+  margin-top:24px;z-index:2;
+  opacity:0;
+  animation:shlokaFade 1s ease 3.5s both;
+}
+.intro-enter-btn:hover{
+  transform:scale(1.05) translateY(-2px);
+  box-shadow:0 0 50px var(--saffron-g),0 0 100px rgba(155,27,27,.25);
+}
+
+/* Particle embers */
+.intro-ember{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:var(--gold);pointer-events:none;z-index:1;
+  animation:emberFloat linear infinite;
+}
+@keyframes emberFloat{
+  0%{transform:translateY(0) scale(1);opacity:.6}
+  100%{transform:translateY(-100vh) scale(0);opacity:0}
+}
+
+/* Flash transition */
+.intro-flash{
+  position:absolute;inset:0;z-index:9999;
+  background:linear-gradient(135deg,rgba(219,181,32,.85),rgba(224,107,16,.85));
+  opacity:0;pointer-events:none;
+}
+.intro-flash.fire{
+  animation:divineFlash .7s ease-out forwards;
+}
+@keyframes divineFlash{
+  0%{opacity:0}15%{opacity:1}100%{opacity:0}
 }
 
 /*═══════════════════════════════════════════════════════════
-  PARTICLE & WEB CANVAS
+  BACKGROUND CANVAS & DIVINE PATTERN
 ═══════════════════════════════════════════════════════════*/
-#bg-canvas{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-/*═══════════════════════════════════════════════════════════
-  3D WEB BACKGROUND PATTERN
-═══════════════════════════════════════════════════════════*/
-.web-bg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  opacity:.08;
+.divine-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
   background:
-    radial-gradient(circle at 50% 50%,transparent 18%,rgba(255,255,255,.04) 18.3%,transparent 18.6%),
-    radial-gradient(circle at 50% 50%,transparent 36%,rgba(255,255,255,.03) 36.3%,transparent 36.6%),
-    radial-gradient(circle at 50% 50%,transparent 56%,rgba(255,255,255,.03) 56.3%,transparent 56.6%),
-    radial-gradient(circle at 50% 50%,transparent 78%,rgba(255,255,255,.02) 78.3%,transparent 78.6%);
-  background-size:500px 500px;background-position:center;
-  transform:perspective(800px) rotateX(2deg);
-}
-.web-bg::after{
-  content:'';position:absolute;inset:0;
-  background:
-    linear-gradient(0deg,transparent 49.7%,rgba(255,255,255,.03) 50%,transparent 50.3%),
-    linear-gradient(30deg,transparent 49.7%,rgba(255,255,255,.03) 50%,transparent 50.3%),
-    linear-gradient(60deg,transparent 49.7%,rgba(255,255,255,.03) 50%,transparent 50.3%),
-    linear-gradient(90deg,transparent 49.7%,rgba(255,255,255,.03) 50%,transparent 50.3%),
-    linear-gradient(120deg,transparent 49.7%,rgba(255,255,255,.03) 50%,transparent 50.3%),
-    linear-gradient(150deg,transparent 49.7%,rgba(255,255,255,.03) 50%,transparent 50.3%);
-  background-size:500px 500px;background-position:center;
+    radial-gradient(circle at 50% 50%,transparent 20%,rgba(196,149,22,.025) 20.3%,transparent 20.6%),
+    radial-gradient(circle at 50% 50%,transparent 40%,rgba(196,149,22,.015) 40.3%,transparent 40.6%),
+    radial-gradient(circle at 50% 50%,transparent 60%,rgba(196,149,22,.015) 60.3%,transparent 60.6%);
+  background-size:600px 600px;background-position:center;
 }
 
 /*═══════════════════════════════════════════════════════════
-  LAYOUT
+  LAYOUT — COMPACT & CONGESTED
 ═══════════════════════════════════════════════════════════*/
 .section-wrap{
   position:relative;z-index:1;
-  max-width:1200px;margin:0 auto;padding:100px 24px 60px;
+  max-width:1100px;margin:0 auto;padding:56px 18px 36px;
 }
 .section-title{
-  font-size:clamp(2rem,5vw,3.2rem);font-weight:900;text-align:center;
-  margin-bottom:12px;position:relative;
-  background:var(--grad);-webkit-background-clip:text;
+  font-family:var(--font-heading);
+  font-size:clamp(1.5rem,4.5vw,2.6rem);font-weight:900;text-align:center;
+  margin-bottom:6px;position:relative;
+  background:var(--grad2);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
-  text-shadow:none;
-  transform:perspective(600px) rotateX(4deg);
 }
 .section-title::after{
-  content:'';display:block;width:60px;height:3px;
-  background:var(--grad2);margin:14px auto 0;border-radius:2px;
-  box-shadow:0 0 12px var(--amber-g);
+  content:'';display:block;width:60px;height:2px;
+  background:var(--grad-divine);margin:8px auto 0;border-radius:2px;
+  box-shadow:0 0 10px var(--gold-g);
+}
+.section-sanskrit{
+  text-align:center;font-family:var(--font-deva);
+  color:var(--gold);font-size:.88rem;margin-bottom:4px;
+  text-shadow:0 0 8px rgba(196,149,22,.18);
+  opacity:.6;
 }
 .section-sub{
-  text-align:center;color:var(--txt2);margin-bottom:56px;font-size:1.05rem;
+  text-align:center;color:var(--txt2);margin-bottom:32px;
+  font-size:.92rem;font-family:var(--font-sub);
+  letter-spacing:1px;
 }
 
 /*═══════════════════════════════════════════════════════════
-  3D SECTION DIVIDER (electric arc)
+  DIVINE DIVIDER (flame arc) — thinner
 ═══════════════════════════════════════════════════════════*/
 .divider{
-  position:relative;z-index:1;height:2px;max-width:1200px;margin:0 auto;
+  position:relative;z-index:1;height:1px;max-width:1100px;margin:0 auto;
   background:linear-gradient(90deg,transparent,var(--border),transparent);
   overflow:visible;
 }
 .divider::before{
-  content:'';position:absolute;inset:-1px 0;height:4px;
+  content:'';position:absolute;inset:-1px 0;height:3px;
   background:linear-gradient(90deg,
-    transparent 10%,var(--amber) 30%,var(--cyan) 50%,var(--amber) 70%,transparent 90%);
-  animation:arcPulse 4s ease-in-out infinite;filter:blur(2px);opacity:.5;
+    transparent 10%,var(--gold) 30%,var(--saffron) 50%,var(--gold) 70%,transparent 90%);
+  animation:flamePulse 4s ease-in-out infinite;filter:blur(2px);opacity:.3;
 }
-@keyframes arcPulse{
+@keyframes flamePulse{
   0%,100%{opacity:0;transform:scaleX(.2)}
-  50%{opacity:.7;transform:scaleX(1)}
+  50%{opacity:.5;transform:scaleX(1)}
+}
+
+/* Decorative mandala separator */
+.divider::after{
+  content:'✦';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:.7rem;color:var(--gold);
+  text-shadow:0 0 8px var(--gold-g);
+  background:var(--bg);padding:0 10px;
 }
 
 /*═══════════════════════════════════════════════════════════
-  NAV
+  NAV — Compact Dark Bar
 ═══════════════════════════════════════════════════════════*/
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:16px 40px;transition:all .4s;
+  padding:10px 32px;transition:all .3s var(--ease);
 }
 .nav.scrolled{
-  background:rgba(6,6,14,.94);backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  box-shadow:0 2px 30px rgba(229,57,53,.08);padding:10px 40px;
+  background:rgba(6,5,7,.97);backdrop-filter:blur(20px) saturate(1.3);
+  -webkit-backdrop-filter:blur(20px) saturate(1.3);
+  box-shadow:0 1px 20px rgba(0,0,0,.6),0 1px 0 rgba(196,149,22,.06);
+  padding:6px 32px;
+  border-bottom:1px solid rgba(196,149,22,.05);
 }
 .nav-logo{
-  font-size:1.5rem;font-weight:900;letter-spacing:1px;
+  font-family:var(--font-heading);
+  font-size:1.2rem;font-weight:900;letter-spacing:2px;
   background:var(--grad2);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
   text-decoration:none;
+  transition:filter .3s;
 }
-.nav-links{display:flex;gap:6px;list-style:none}
+.nav-logo:hover{filter:brightness(1.2)}
+.nav-links{display:flex;gap:2px;list-style:none}
 .nav-links a{
-  color:var(--txt2);text-decoration:none;font-size:.9rem;font-weight:500;
-  padding:8px 16px;border-radius:8px;transition:all .3s;position:relative;
+  font-family:var(--font-sub);
+  color:var(--txt2);text-decoration:none;font-size:.78rem;font-weight:600;
+  padding:6px 12px;border-radius:6px;transition:all .2s var(--ease);position:relative;
+  letter-spacing:1px;text-transform:uppercase;
 }
 .nav-links a:hover,.nav-links a.active{
-  color:var(--txt);background:rgba(229,57,53,.1);
+  color:var(--txt);background:rgba(196,149,22,.06);
 }
 .nav-links a::after{
-  content:'';position:absolute;bottom:2px;left:50%;
-  transform:translateX(-50%) scaleX(0);width:20px;height:2px;
-  background:var(--amber);border-radius:1px;transition:transform .3s var(--ease);
+  content:'';position:absolute;bottom:1px;left:50%;
+  transform:translateX(-50%) scaleX(0);width:16px;height:1.5px;
+  background:var(--gold);border-radius:1px;transition:transform .25s var(--ease);
 }
 .nav-links a:hover::after,.nav-links a.active::after{
   transform:translateX(-50%) scaleX(1);
 }
+
+/* Audio toggle in nav */
+.nav-audio-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(196,149,22,.07);border:1px solid rgba(196,149,22,.18);
+  color:var(--gold);padding:4px 10px;border-radius:6px;
+  font-family:var(--font-sub);font-size:.72rem;font-weight:600;
+  letter-spacing:1px;cursor:pointer;transition:all .2s ease;
+  backdrop-filter:blur(8px);text-transform:uppercase;
+}
+.nav-audio-btn:hover{
+  background:rgba(196,149,22,.14);border-color:var(--gold);
+  transform:translateY(-1px);
+  box-shadow:0 3px 14px rgba(196,149,22,.1);
+}
+.nav-audio-btn .audio-bars{
+  display:flex;align-items:flex-end;gap:1.5px;height:10px;
+}
+.nav-audio-btn .audio-bars span{
+  width:1.5px;background:var(--gold);border-radius:1px;
+  animation:audioWave 1.2s infinite ease-in-out;
+}
+.nav-audio-btn.paused .audio-bars span{
+  animation:none;height:2px !important;opacity:.35;
+}
+.nav-audio-btn .audio-bars span:nth-child(1){height:5px;animation-delay:0s}
+.nav-audio-btn .audio-bars span:nth-child(2){height:10px;animation-delay:.2s}
+.nav-audio-btn .audio-bars span:nth-child(3){height:7px;animation-delay:.4s}
+.nav-audio-btn .audio-bars span:nth-child(4){height:9px;animation-delay:.1s}
+@keyframes audioWave{0%,100%{height:2px}50%{height:10px}}
+
 /* Hamburger */
 .hamburger{
-  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  display:none;flex-direction:column;gap:4px;cursor:pointer;
   z-index:1100;background:none;border:none;padding:4px;
 }
 .hamburger span{
-  display:block;width:26px;height:2px;background:var(--txt);
-  border-radius:2px;transition:transform .3s,opacity .3s;
+  display:block;width:22px;height:1.5px;background:var(--txt);
+  border-radius:2px;transition:transform .25s,opacity .25s;
 }
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.hamburger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
 @media(max-width:768px){
-  .nav{padding:14px 20px}
-  .nav.scrolled{padding:10px 20px}
+  .nav{padding:10px 16px}
+  .nav.scrolled{padding:6px 16px}
   .hamburger{display:flex}
   .nav-links{
     position:fixed;inset:0;flex-direction:column;align-items:center;
-    justify-content:center;gap:12px;background:rgba(6,6,14,.97);
-    backdrop-filter:blur(20px);opacity:0;pointer-events:none;transition:opacity .4s;
+    justify-content:center;gap:8px;background:rgba(6,5,7,.98);
+    backdrop-filter:blur(24px);opacity:0;pointer-events:none;transition:opacity .3s;
   }
   .nav-links.open{opacity:1;pointer-events:all}
-  .nav-links a{font-size:1.25rem;padding:12px 32px}
+  .nav-links a{font-size:1.05rem;padding:10px 28px}
 }
 
 /*═══════════════════════════════════════════════════════════
-  HERO — MASSIVE 3D
+  HERO — KURUKSHETRA BATTLEFIELD — COMPACT
 ═══════════════════════════════════════════════════════════*/
 .hero{
   position:relative;z-index:1;min-height:100vh;
   display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:120px 24px 80px;overflow:hidden;
+  text-align:center;padding:80px 18px 50px;overflow:hidden;
 }
-/* Vibrant radial glows */
+/* Divine radial glows — subtler */
 .hero::before{
-  content:'';position:absolute;top:-15%;left:-15%;width:700px;height:700px;
-  background:radial-gradient(circle,rgba(229,57,53,.18) 0%,transparent 65%);
-  animation:heroGlow 5s ease-in-out infinite;
+  content:'';position:absolute;top:-15%;left:-15%;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(224,107,16,.1) 0%,transparent 60%);
+  animation:heroGlow 7s ease-in-out infinite;
 }
 .hero::after{
-  content:'';position:absolute;bottom:-15%;right:-15%;width:700px;height:700px;
-  background:radial-gradient(circle,rgba(41,121,255,.14) 0%,transparent 65%);
-  animation:heroGlow 5s ease-in-out infinite 2.5s;
+  content:'';position:absolute;bottom:-15%;right:-15%;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(155,27,27,.07) 0%,transparent 60%);
+  animation:heroGlow 7s ease-in-out infinite 3.5s;
 }
-.hero-glow-amber{
+.hero-glow-divine{
   position:absolute;top:25%;left:50%;transform:translateX(-50%);
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(255,179,0,.08) 0%,transparent 55%);
-  animation:heroGlow 7s ease-in-out infinite 1s;pointer-events:none;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(219,181,32,.04) 0%,transparent 50%);
+  animation:heroGlow 9s ease-in-out infinite 1.5s;pointer-events:none;
 }
 @keyframes heroGlow{
-  0%,100%{opacity:.5;transform:scale(1)}
-  50%{opacity:1;transform:scale(1.2)}
+  0%,100%{opacity:.4;transform:scale(1)}
+  50%{opacity:.9;transform:scale(1.12)}
 }
 
 .hero-content{position:relative;z-index:2}
 
 .hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,179,0,.1);border:1px solid rgba(255,179,0,.3);
-  border-radius:999px;padding:8px 22px;font-size:.85rem;color:var(--amber);
-  margin-bottom:28px;backdrop-filter:blur(8px);
-  animation:fadeInDown .8s var(--ease) both;
-  box-shadow:0 0 20px rgba(255,179,0,.08);
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(196,149,22,.06);border:1px solid rgba(196,149,22,.18);
+  border-radius:999px;padding:5px 18px;
+  font-family:var(--font-sub);font-size:.76rem;color:var(--gold);
+  margin-bottom:18px;backdrop-filter:blur(8px);
+  box-shadow:0 0 16px rgba(196,149,22,.04);
+  letter-spacing:2px;text-transform:uppercase;
+  /* Staggered fade-in via JS */
+  opacity:0;transform:translateY(20px);
 }
 .hero-badge .dot{
-  width:8px;height:8px;background:var(--amber);border-radius:50%;
+  width:6px;height:6px;background:var(--saffron);border-radius:50%;
   animation:dotPulse 2s ease-in-out infinite;
 }
 @keyframes dotPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(255,179,0,.5)}
-  50%{box-shadow:0 0 0 8px rgba(255,179,0,0)}
+  0%,100%{box-shadow:0 0 0 0 rgba(224,107,16,.45)}
+  50%{box-shadow:0 0 0 6px rgba(224,107,16,0)}
 }
 
 .hero-name{
-  font-size:clamp(3rem,9vw,6rem);font-weight:900;line-height:1.05;
-  letter-spacing:-3px;margin-bottom:20px;
-  animation:fadeInUp .8s var(--ease) .2s both;
-  transform-style:preserve-3d;
+  font-family:var(--font-heading);
+  font-size:clamp(2.4rem,8.5vw,5rem);font-weight:900;line-height:1.02;
+  letter-spacing:1px;margin-bottom:12px;
+  /* Staggered fade-in via JS */
+  opacity:0;transform:translateY(24px);
 }
 .hero-name .first{
   display:block;color:var(--txt);
-  text-shadow:0 0 40px rgba(255,255,255,.08);
+  text-shadow:0 0 30px rgba(255,255,255,.04);
 }
 .hero-name .last{
   display:block;
-  background:linear-gradient(135deg,var(--red),var(--amber),var(--blue));
+  background:linear-gradient(135deg,var(--divine),var(--saffron),var(--crimson));
   background-size:300% auto;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:triGradient 5s ease-in-out infinite;
-  filter:drop-shadow(0 4px 30px var(--red-g));
+  animation:divineGradient 6s ease-in-out infinite;
+  filter:drop-shadow(0 3px 24px var(--gold-g));
 }
-@keyframes triGradient{
+@keyframes divineGradient{
   0%{background-position:0% center}
   50%{background-position:100% center}
   100%{background-position:0% center}
 }
 
 .hero-tagline{
-  font-size:clamp(1rem,2.5vw,1.3rem);color:var(--txt2);
-  max-width:620px;margin:0 auto 12px;
-  animation:fadeInUp .8s var(--ease) .4s both;
+  font-family:var(--font-sub);
+  font-size:clamp(.88rem,2.1vw,1.1rem);color:var(--txt2);
+  max-width:580px;margin:0 auto 8px;
+  letter-spacing:1px;
+  opacity:0;transform:translateY(20px);
 }
-.hero-tasm-tag{
-  font-size:.78rem;color:var(--amber);letter-spacing:4px;
-  text-transform:uppercase;opacity:.55;margin-bottom:18px;
-  animation:fadeInUp .8s var(--ease) .45s both;
-  text-shadow:0 0 12px rgba(255,179,0,.3);
+.hero-dharma-tag{
+  font-family:var(--font-deva);
+  font-size:clamp(.8rem,1.6vw,.95rem);color:var(--gold);
+  opacity:0;margin-bottom:12px;
+  transform:translateY(18px);
+  text-shadow:0 0 10px rgba(196,149,22,.25);
 }
 
 .hero-typing{
-  font-size:clamp(.9rem,2vw,1.1rem);color:var(--cyan);
-  font-family:'Courier New',monospace;min-height:1.6em;margin-bottom:36px;
-  animation:fadeInUp .8s var(--ease) .5s both;
-  text-shadow:0 0 16px rgba(0,229,255,.3);
+  font-size:clamp(.84rem,1.8vw,1rem);color:var(--saffron);
+  font-family:var(--font-sub);min-height:1.4em;margin-bottom:24px;
+  text-shadow:0 0 12px rgba(224,107,16,.25);
+  letter-spacing:1px;
+  opacity:0;transform:translateY(16px);
 }
 .hero-typing .cursor{
-  display:inline-block;width:2px;height:1.1em;background:var(--cyan);
+  display:inline-block;width:2px;height:1em;background:var(--saffron);
   margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-end infinite;
 }
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
 .hero-cta{
-  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
-  animation:fadeInUp .8s var(--ease) .6s both;
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  opacity:0;transform:translateY(16px);
 }
 .btn-p,.btn-s{
-  display:inline-flex;align-items:center;gap:8px;padding:14px 34px;
-  border-radius:14px;font-size:.95rem;font-weight:600;text-decoration:none;
+  font-family:var(--font-sub);
+  display:inline-flex;align-items:center;gap:6px;padding:11px 26px;
+  border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;
   cursor:pointer;border:none;position:relative;overflow:hidden;
-  transition:transform .3s,box-shadow .3s;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease);letter-spacing:1px;
+  text-transform:uppercase;
 }
 .btn-p{
   background:var(--grad);color:#fff;
-  box-shadow:0 4px 24px var(--red-g),0 0 60px rgba(229,57,53,.15);
+  box-shadow:0 3px 18px var(--saffron-g),0 0 40px rgba(224,107,16,.08);
 }
 .btn-p:hover{
-  transform:translateY(-3px) scale(1.04) perspective(600px) rotateX(3deg);
-  box-shadow:0 10px 40px var(--red-g),0 0 80px rgba(229,57,53,.2);
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 8px 32px var(--saffron-g),0 0 60px rgba(224,107,16,.12);
 }
-/* Sheen sweep */
 .btn-p::after{
   content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
-  transition:left .5s;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+  transition:left .4s;
 }
 .btn-p:hover::after{left:120%}
 .btn-s{
@@ -336,1037 +525,477 @@ body{
   border:1px solid var(--border);backdrop-filter:blur(8px);
 }
 .btn-s:hover{
-  border-color:var(--amber);
-  transform:translateY(-3px) perspective(600px) rotateX(2deg);
-  box-shadow:0 6px 24px rgba(255,179,0,.12);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+  box-shadow:0 4px 18px rgba(196,149,22,.08);
 }
 
 /* Scroll indicator */
 .scroll-ind{
-  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  animation:fadeInUp .8s var(--ease) 1s both;
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  opacity:0;
 }
 .scroll-ind .mouse{
-  width:24px;height:38px;border:2px solid rgba(255,255,255,.15);border-radius:12px;
+  width:20px;height:32px;border:1.5px solid rgba(196,149,22,.15);border-radius:10px;
   position:relative;
 }
 .scroll-ind .mouse::after{
-  content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);
-  width:3px;height:8px;background:var(--amber);border-radius:2px;
+  content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);
+  width:2px;height:6px;background:var(--gold);border-radius:2px;
   animation:scrollDot 2s ease-in-out infinite;
 }
-@keyframes scrollDot{0%{top:6px;opacity:1}100%{top:22px;opacity:0}}
-.scroll-ind span{font-size:.7rem;color:var(--txt2);letter-spacing:2px;text-transform:uppercase}
-
-/* Spider emblem watermark */
-.spider-emblem{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:min(520px,85vw);height:min(520px,85vw);
-  opacity:.03;z-index:0;pointer-events:none;
-  animation:emblemSpin 50s linear infinite;
+@keyframes scrollDot{0%{top:5px;opacity:1}100%{top:18px;opacity:0}}
+.scroll-ind span{
+  font-family:var(--font-sub);
+  font-size:.58rem;color:var(--txt2);letter-spacing:3px;text-transform:uppercase;
 }
-@keyframes emblemSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* Chakra watermark */
+.chakra-emblem{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(440px,80vw);height:min(440px,80vw);
+  opacity:.018;z-index:0;pointer-events:none;
+  animation:chakraSpin 60s linear infinite;
+}
+@keyframes chakraSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
 /*═══════════════════════════════════════════════════════════
-  ABOUT — 3D CARD
+  ABOUT — WARRIOR'S CHRONICLE — COMPACT
 ═══════════════════════════════════════════════════════════*/
 .about-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;
 }
-@media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:32px}}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:20px}}
 
 .about-avatar{
-  width:280px;height:280px;margin:0 auto;
-  border-radius:24px;background:var(--glass);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;font-size:6rem;
+  width:220px;height:220px;margin:0 auto;
+  border-radius:50%;background:var(--glass);border:1.5px solid rgba(196,149,22,.15);
+  display:flex;align-items:center;justify-content:center;font-size:5rem;
   position:relative;overflow:hidden;
-  transform:perspective(800px) rotateY(-8deg) rotateX(4deg);
-  transition:transform .5s var(--ease);
+  transition:transform .35s var(--ease),box-shadow .35s;
   box-shadow:
-    0 20px 60px rgba(229,57,53,.12),
-    0 0 80px rgba(41,121,255,.06),
-    inset 0 0 60px rgba(255,179,0,.03);
+    0 16px 48px rgba(0,0,0,.5),
+    0 0 60px rgba(196,149,22,.03),
+    inset 0 0 50px rgba(196,149,22,.02);
 }
 .about-avatar:hover{
-  transform:perspective(800px) rotateY(0) rotateX(0) scale(1.05);
+  transform:scale(1.04);
   box-shadow:
-    0 30px 80px rgba(229,57,53,.18),
-    0 0 100px rgba(255,179,0,.1);
+    0 24px 64px rgba(0,0,0,.6),
+    0 0 80px rgba(196,149,22,.06);
 }
 .about-avatar::before{
-  content:'';position:absolute;inset:-2px;border-radius:26px;
-  background:linear-gradient(135deg,var(--red),var(--amber),var(--blue));
-  z-index:-1;opacity:.6;background-size:200% 200%;
-  animation:borderShift 4s ease-in-out infinite;
+  content:'';position:absolute;inset:-2px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--gold),var(--saffron),var(--crimson),var(--gold));
+  z-index:-1;opacity:.4;
+  animation:avatarRing 6s linear infinite;
 }
-@keyframes borderShift{
-  0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
-}
+@keyframes avatarRing{to{transform:rotate(360deg)}}
 
 .about-text h3{
-  font-size:1.6rem;font-weight:700;margin-bottom:16px;
+  font-family:var(--font-heading);
+  font-size:1.3rem;font-weight:700;margin-bottom:10px;
   background:var(--grad2);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
 }
-.about-text p{color:var(--txt2);margin-bottom:16px;font-size:1.02rem}
-.about-stats{display:flex;gap:20px;margin-top:24px;flex-wrap:wrap}
+.about-text p{color:var(--txt2);margin-bottom:10px;font-size:.92rem}
+.about-stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .about-stat{
-  text-align:center;padding:16px 22px;background:var(--glass);
-  border:1px solid var(--border);border-radius:16px;
-  backdrop-filter:blur(12px);min-width:90px;
-  transition:all .4s var(--ease);
-  transform:perspective(600px) rotateX(0);
+  text-align:center;padding:10px 16px;background:var(--glass);
+  border:1px solid var(--border);border-radius:10px;
+  backdrop-filter:blur(12px);min-width:72px;
+  transition:all .25s var(--ease);
+  box-shadow:var(--shadow-card);
 }
 .about-stat:hover{
-  border-color:var(--amber);
-  transform:perspective(600px) rotateX(-5deg) translateY(-6px);
-  box-shadow:0 12px 30px rgba(255,179,0,.1);
+  border-color:var(--gold);
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:var(--shadow-hover);
 }
 .about-stat .num{
-  font-size:1.6rem;font-weight:800;
+  font-family:var(--font-heading);
+  font-size:1.3rem;font-weight:800;
   background:var(--grad2);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
 }
 .about-stat .lbl{
-  font-size:.72rem;color:var(--txt2);text-transform:uppercase;letter-spacing:1px;margin-top:4px;
+  font-family:var(--font-sub);
+  font-size:.64rem;color:var(--txt2);text-transform:uppercase;letter-spacing:1px;margin-top:2px;
 }
 
 /*═══════════════════════════════════════════════════════════
-  SKILL CARDS — 3D FLIP / DEPTH
+  SKILL CARDS — ASTRAS (DIVINE WEAPONS) — DENSE
 ═══════════════════════════════════════════════════════════*/
 .skills-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;
 }
 .skill-card{
-  background:var(--glass);border:1px solid var(--border);border-radius:20px;
-  padding:32px;backdrop-filter:blur(14px);position:relative;overflow:hidden;
-  transition:all .4s var(--ease);
-  transform:perspective(800px) rotateX(0) rotateY(0);
-  transform-style:preserve-3d;
+  background:var(--glass);border:1px solid var(--border);border-radius:14px;
+  padding:20px;backdrop-filter:blur(14px);position:relative;overflow:hidden;
+  transition:all .25s var(--ease);
+  box-shadow:var(--shadow-card);
 }
 .skill-card:hover{
-  transform:perspective(800px) rotateX(-3deg) translateY(-8px) translateZ(20px);
-  border-color:var(--red);
-  box-shadow:
-    0 20px 50px rgba(229,57,53,.12),
-    0 0 40px rgba(255,179,0,.06);
+  transform:translateY(-5px);
+  border-color:rgba(196,149,22,.2);
+  box-shadow:var(--shadow-hover);
 }
 .skill-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--red),var(--amber),var(--blue));
-  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad-divine);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);
 }
 .skill-card:hover::before{transform:scaleX(1)}
-/* Holographic shimmer */
+/* Ancient shimmer */
 .skill-card::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(105deg,
-    transparent 40%,
-    rgba(255,179,0,.03) 45%,
-    rgba(0,229,255,.03) 50%,
-    transparent 55%);
+    transparent 40%,rgba(196,149,22,.015) 45%,
+    rgba(224,107,16,.015) 50%,transparent 55%);
   background-size:200% 100%;
-  animation:holoShimmer 6s ease-in-out infinite;
-  pointer-events:none;border-radius:20px;
+  animation:ancientShimmer 6s ease-in-out infinite;
+  pointer-events:none;border-radius:14px;
 }
-@keyframes holoShimmer{
-  0%{background-position:200% 0}
-  100%{background-position:-200% 0}
+@keyframes ancientShimmer{
+  0%{background-position:200% 0}100%{background-position:-200% 0}
 }
 
 .skill-icon{
-  width:56px;height:56px;border-radius:14px;
+  width:44px;height:44px;border-radius:10px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;margin-bottom:20px;
-  transform:translateZ(30px);
+  font-size:1.2rem;margin-bottom:12px;
 }
-.skill-icon.py{background:rgba(55,118,171,.15);border:1px solid rgba(55,118,171,.3)}
-.skill-icon.cli{background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25)}
-.skill-icon.bl{background:rgba(255,179,0,.1);border:1px solid rgba(255,179,0,.25)}
+.skill-icon.py{background:rgba(196,149,22,.08);border:1px solid rgba(196,149,22,.18)}
+.skill-icon.cli{background:rgba(224,107,16,.06);border:1px solid rgba(224,107,16,.14)}
+.skill-icon.bl{background:rgba(155,27,27,.08);border:1px solid rgba(155,27,27,.14)}
 
-.skill-card h3{font-size:1.2rem;font-weight:700;margin-bottom:8px;color:var(--txt)}
-.skill-card p{font-size:.92rem;color:var(--txt2);margin-bottom:20px}
-.bar-wrap{background:rgba(255,255,255,.06);border-radius:6px;height:8px;overflow:hidden}
+.skill-card h3{
+  font-family:var(--font-sub);
+  font-size:1rem;font-weight:700;margin-bottom:5px;color:var(--txt);
+  letter-spacing:1px;
+}
+.skill-card p{font-size:.82rem;color:var(--txt2);margin-bottom:14px;line-height:1.5}
+.bar-wrap{background:rgba(196,149,22,.04);border-radius:4px;height:6px;overflow:hidden}
 .bar{
-  height:100%;border-radius:6px;width:0;
-  background:linear-gradient(90deg,var(--red),var(--amber),var(--blue));
+  height:100%;border-radius:4px;width:0;
+  background:linear-gradient(90deg,var(--crimson),var(--saffron),var(--gold));
   background-size:200% auto;animation:barGrad 3s linear infinite paused;
-  transition:width 1.2s var(--ease);
+  transition:width 1s var(--ease);
 }
 .bar.animated{animation-play-state:running}
 @keyframes barGrad{0%{background-position:0%}100%{background-position:200%}}
-.skill-level{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.skill-level span{font-size:.78rem;color:var(--txt2)}
+.skill-level{display:flex;justify-content:space-between;align-items:center;margin-top:5px}
+.skill-level span{font-family:var(--font-sub);font-size:.68rem;color:var(--txt2)}
 .level-tag{
-  background:rgba(255,179,0,.12);color:var(--amber);
-  padding:2px 10px;border-radius:999px;font-size:.72rem;font-weight:600;
+  font-family:var(--font-sub);
+  background:rgba(196,149,22,.08);color:var(--gold);
+  padding:1px 8px;border-radius:999px;font-size:.64rem;font-weight:700;
+  letter-spacing:1px;
 }
 
 /*═══════════════════════════════════════════════════════════
-  HOBBIES — 3D POP-OUT CARDS
+  HOBBIES — PATHS OF DHARMA — DENSE
 ═══════════════════════════════════════════════════════════*/
 .hobbies-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;
 }
 .hobby-card{
-  background:var(--glass);border:1px solid var(--border);border-radius:20px;
-  padding:36px 28px;text-align:center;backdrop-filter:blur(14px);
+  background:var(--glass);border:1px solid var(--border);border-radius:14px;
+  padding:22px 18px;text-align:center;backdrop-filter:blur(14px);
   position:relative;overflow:hidden;
-  transition:all .4s var(--ease);transform-style:preserve-3d;
+  transition:all .25s var(--ease);
+  box-shadow:var(--shadow-card);
 }
 .hobby-card:hover{
-  transform:perspective(800px) rotateX(-4deg) translateY(-10px) translateZ(30px);
-  border-color:var(--red);
-  box-shadow:0 24px 60px rgba(229,57,53,.14),0 0 50px rgba(255,179,0,.06);
+  transform:translateY(-6px);
+  border-color:rgba(196,149,22,.2);
+  box-shadow:var(--shadow-hover);
 }
 .hobby-card .emoji{
-  font-size:3.2rem;margin-bottom:16px;display:block;
-  transition:transform .4s;
-  filter:drop-shadow(0 4px 12px rgba(0,0,0,.4));
+  font-size:2.6rem;margin-bottom:10px;display:block;
+  transition:transform .3s var(--ease);
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));
 }
-.hobby-card:hover .emoji{
-  transform:scale(1.3) rotate(-8deg) translateZ(40px);
+.hobby-card:hover .emoji{transform:scale(1.2) rotate(-6deg)}
+.hobby-card h3{
+  font-family:var(--font-sub);
+  font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--txt);
+  letter-spacing:1px;
 }
-.hobby-card h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;color:var(--txt)}
-.hobby-card p{font-size:.9rem;color:var(--txt2);line-height:1.5}
+.hobby-card p{font-size:.8rem;color:var(--txt2);line-height:1.5}
 
-/* Spider special card */
-.hobby-card.spider{
-  border-color:rgba(229,57,53,.25);
-  background:linear-gradient(135deg,rgba(229,57,53,.06),rgba(41,121,255,.04));
+/* Krishna special card */
+.hobby-card.krishna{
+  border-color:rgba(196,149,22,.14);
+  background:linear-gradient(135deg,rgba(20,96,60,.05),rgba(196,149,22,.03));
 }
-.hobby-card.spider:hover{
-  box-shadow:
-    0 24px 60px rgba(229,57,53,.18),
-    0 0 80px rgba(229,57,53,.08),
-    0 0 40px rgba(255,179,0,.06);
-}
-.hobby-card.spider .emoji{
-  filter:drop-shadow(0 0 16px var(--red-g)) drop-shadow(0 0 30px rgba(255,179,0,.3));
+.hobby-card.krishna:hover{
+  box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 50px rgba(20,96,60,.04);
 }
 
 /*═══════════════════════════════════════════════════════════
-  PROJECTS — 3D PERSPECTIVE CARDS
+  PROJECTS — BATTLE CAMPAIGNS — DENSE
 ═══════════════════════════════════════════════════════════*/
 .projects-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;
 }
 @media(max-width:480px){.projects-grid{grid-template-columns:1fr}}
 .project-card{
-  background:var(--glass);border:1px solid var(--border);border-radius:20px;
+  background:var(--glass);border:1px solid var(--border);border-radius:14px;
   overflow:hidden;backdrop-filter:blur(14px);
   display:flex;flex-direction:column;
-  transition:all .4s var(--ease);transform-style:preserve-3d;
+  transition:all .25s var(--ease);
+  box-shadow:var(--shadow-card);
 }
 .project-card:hover{
-  transform:perspective(800px) rotateX(-3deg) rotateY(2deg) translateY(-8px) translateZ(20px);
-  border-color:var(--blue);
-  box-shadow:0 20px 50px rgba(41,121,255,.12),0 0 50px rgba(0,229,255,.06);
+  transform:translateY(-5px);
+  border-color:rgba(196,149,22,.2);
+  box-shadow:var(--shadow-hover);
 }
 .proj-thumb{
-  height:200px;position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;font-size:4rem;
+  height:160px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;font-size:3.2rem;
+  transition:transform .4s var(--ease);
 }
-.proj-thumb.p1{background:linear-gradient(135deg,rgba(229,57,53,.18),rgba(255,179,0,.10))}
-.proj-thumb.p2{background:linear-gradient(135deg,rgba(41,121,255,.18),rgba(0,229,255,.10))}
-.proj-thumb.p3{background:linear-gradient(135deg,rgba(255,179,0,.15),rgba(213,0,249,.10))}
+.project-card:hover .proj-thumb{transform:scale(1.03)}
+.proj-thumb.p1{background:linear-gradient(135deg,rgba(224,107,16,.08),rgba(196,149,22,.05))}
+.proj-thumb.p2{background:linear-gradient(135deg,rgba(155,27,27,.08),rgba(82,13,20,.05))}
+.proj-thumb.p3{background:linear-gradient(135deg,rgba(196,149,22,.07),rgba(20,96,60,.05))}
 .proj-thumb::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:60px;
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50px;
   background:linear-gradient(to top,var(--glass),transparent);
 }
-.proj-info{padding:24px;flex:1;display:flex;flex-direction:column}
-.proj-info h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;color:var(--txt)}
-.proj-info p{font-size:.9rem;color:var(--txt2);margin-bottom:18px;flex:1}
-.proj-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.proj-info{padding:16px;flex:1;display:flex;flex-direction:column}
+.proj-info h3{
+  font-family:var(--font-sub);
+  font-size:.98rem;font-weight:700;margin-bottom:6px;color:var(--txt);
+  letter-spacing:1px;
+}
+.proj-info p{font-size:.82rem;color:var(--txt2);margin-bottom:12px;flex:1;line-height:1.5}
+.proj-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
 .proj-tags span{
-  font-size:.75rem;padding:4px 12px;border-radius:999px;font-weight:500;
-  background:rgba(229,57,53,.1);border:1px solid rgba(229,57,53,.15);color:var(--red);
+  font-family:var(--font-sub);
+  font-size:.66rem;padding:2px 9px;border-radius:999px;font-weight:600;
+  background:rgba(196,149,22,.06);border:1px solid rgba(196,149,22,.09);color:var(--gold);
+  letter-spacing:1px;
 }
 .proj-link{
-  display:inline-flex;align-items:center;gap:6px;font-size:.88rem;
-  color:var(--cyan);text-decoration:none;font-weight:600;transition:gap .3s;
+  font-family:var(--font-sub);
+  display:inline-flex;align-items:center;gap:5px;font-size:.8rem;
+  color:var(--saffron);text-decoration:none;font-weight:700;
+  transition:gap .25s,color .25s;letter-spacing:1px;
 }
-.proj-link:hover{gap:12px}
+.proj-link:hover{gap:10px;color:var(--divine)}
 
 /*═══════════════════════════════════════════════════════════
-  CONTACT — DEPTH
+  CONTACT — COUNCIL OF WAR — COMPACT
 ═══════════════════════════════════════════════════════════*/
 .contact-grid{
-  display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:start;
+  display:grid;grid-template-columns:1fr 1.2fr;gap:20px;align-items:start;
 }
 @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
 .contact-info{
-  padding:32px;background:var(--glass);border:1px solid var(--border);
-  border-radius:20px;backdrop-filter:blur(14px);
-  transform:perspective(600px) rotateY(3deg);
-  transition:transform .4s var(--ease);
+  padding:20px;background:var(--glass);border:1px solid var(--border);
+  border-radius:14px;backdrop-filter:blur(14px);
+  transition:transform .3s var(--ease);
+  box-shadow:var(--shadow-card);
 }
-.contact-info:hover{transform:perspective(600px) rotateY(0)}
+.contact-info:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
 .contact-info h3{
-  font-size:1.4rem;font-weight:700;margin-bottom:12px;
+  font-family:var(--font-heading);
+  font-size:1.1rem;font-weight:700;margin-bottom:8px;
   background:var(--grad2);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
 }
-.contact-info>p{color:var(--txt2);margin-bottom:28px;font-size:.95rem}
+.contact-info>p{color:var(--txt2);margin-bottom:18px;font-size:.85rem}
 .c-item{
-  display:flex;align-items:center;gap:16px;margin-bottom:20px;
-  padding:14px 18px;border-radius:14px;transition:background .3s;
+  display:flex;align-items:center;gap:12px;margin-bottom:12px;
+  padding:10px 12px;border-radius:10px;transition:background .2s;
 }
-.c-item:hover{background:rgba(255,179,0,.04)}
+.c-item:hover{background:rgba(196,149,22,.025)}
 .c-icon{
-  width:44px;height:44px;border-radius:12px;
-  background:rgba(229,57,53,.1);border:1px solid rgba(229,57,53,.2);
-  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(196,149,22,.06);border:1px solid rgba(196,149,22,.1);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;
 }
-.c-label{font-size:.78rem;color:var(--txt2);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
-.c-value{font-size:.95rem;color:var(--txt);font-weight:500}
+.c-label{
+  font-family:var(--font-sub);
+  font-size:.68rem;color:var(--txt2);text-transform:uppercase;letter-spacing:1px;margin-bottom:1px;
+}
+.c-value{font-size:.85rem;color:var(--txt);font-weight:500}
 
-.contact-form{display:flex;flex-direction:column;gap:18px}
+.contact-form{display:flex;flex-direction:column;gap:10px}
 .contact-form input,.contact-form textarea{
-  width:100%;padding:16px 20px;background:var(--glass);
-  border:1px solid var(--border);border-radius:14px;color:var(--txt);
-  font-size:.95rem;font-family:inherit;backdrop-filter:blur(12px);
-  transition:border-color .3s,box-shadow .3s;outline:none;
+  width:100%;padding:12px 16px;background:var(--glass);
+  border:1px solid var(--border);border-radius:10px;color:var(--txt);
+  font-size:.85rem;font-family:var(--font-body);backdrop-filter:blur(12px);
+  transition:border-color .2s,box-shadow .2s;outline:none;
 }
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--txt2)}
 .contact-form input:focus,.contact-form textarea:focus{
-  border-color:var(--amber);
-  box-shadow:0 0 0 3px rgba(255,179,0,.1),0 0 20px rgba(255,179,0,.06);
+  border-color:var(--gold);
+  box-shadow:0 0 0 2px rgba(196,149,22,.06),0 0 16px rgba(196,149,22,.03);
 }
-.contact-form textarea{resize:vertical;min-height:140px}
+.contact-form textarea{resize:vertical;min-height:110px}
 
 /*═══════════════════════════════════════════════════════════
-  FOOTER
+  FOOTER — LEGACY — COMPACT
 ═══════════════════════════════════════════════════════════*/
 .footer{
-  position:relative;z-index:1;text-align:center;padding:40px 24px;
+  position:relative;z-index:1;text-align:center;padding:24px 18px;
   border-top:1px solid var(--border);
 }
-.footer p{color:var(--txt2);font-size:.85rem}
-.footer .heart{color:var(--red);display:inline-block;animation:heartbeat 1.4s ease-in-out infinite}
-@keyframes heartbeat{
+.footer p{color:var(--txt2);font-size:.78rem}
+.footer .flame{color:var(--saffron);display:inline-block;animation:flameBeat 1.4s ease-in-out infinite}
+@keyframes flameBeat{
   0%,100%{transform:scale(1)}14%{transform:scale(1.3)}
   28%{transform:scale(1)}42%{transform:scale(1.3)}56%{transform:scale(1)}
 }
-.footer-sub{font-size:.78rem;color:rgba(255,255,255,.15);margin-top:8px}
-
-/*═══════════════════════════════════════════════════════════
-  ANIMATIONS
-═══════════════════════════════════════════════════════════*/
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-
-.reveal{
-  opacity:0;transform:translateY(50px) perspective(600px) rotateX(5deg);
-  transition:opacity .7s var(--ease),transform .7s var(--ease);
+.footer-dharma{
+  font-family:var(--font-deva);
+  font-size:.82rem;color:rgba(196,149,22,.25);margin-top:4px;
 }
-.reveal.show{opacity:1;transform:translateY(0) perspective(600px) rotateX(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}
-.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
 /*═══════════════════════════════════════════════════════════
-  RESPONSIVE
+  ANIMATIONS — OVERHAULED
+═══════════════════════════════════════════════════════════*/
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+
+/* New staggered reveal system */
+.reveal{
+  opacity:0;transform:translateY(36px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease);
+  will-change:opacity,transform;
+}
+.reveal.show{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.06s}.d2{transition-delay:.12s}
+.d3{transition-delay:.18s}.d4{transition-delay:.24s}
+
+/* Stagger from left / right for variety */
+.reveal-left{
+  opacity:0;transform:translateX(-30px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease);
+  will-change:opacity,transform;
+}
+.reveal-left.show{opacity:1;transform:translateX(0)}
+.reveal-right{
+  opacity:0;transform:translateX(30px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease);
+  will-change:opacity,transform;
+}
+.reveal-right.show{opacity:1;transform:translateX(0)}
+
+/*═══════════════════════════════════════════════════════════
+  RESPONSIVE — COMPACT
 ═══════════════════════════════════════════════════════════*/
 @media(max-width:480px){
-  .section-wrap{padding:70px 16px 40px}
+  .section-wrap{padding:40px 12px 28px}
   .about-stats{justify-content:center}
-  .hero-name{letter-spacing:-1px}
+  .hero-name{letter-spacing:0}
   .skills-grid,.hobbies-grid{grid-template-columns:1fr}
-  .about-avatar{width:220px;height:220px;font-size:4.5rem}
-}
-
-/*═══════════════════════════════════════════════════════════
-  THE AMAZING SPIDER-MAN 2 — CINEMATIC VIDEO INTRO
-═══════════════════════════════════════════════════════════*/
-body.intro-active{
-  overflow:hidden !important;
-}
-
-.tasm-video-intro{
-  position:fixed;
-  inset:0;
-  z-index:999999;
-  background:#020205;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  transition:opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.9s;
-}
-
-.tasm-video-intro.dismissed{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-}
-
-/* Responsive 16:9 Fullscreen Video Viewport (Movie Clip) */
-.tasm-video-viewport{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  z-index:1;
-  background:#000000;
-}
-
-.tasm-video-viewport video,
-.tasm-video-viewport iframe{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  width:100vw;
-  height:56.25vw; /* 16:9 ratio */
-  min-height:100vh;
-  min-width:177.77vh; /* 16:9 ratio */
-  border:none;
-  outline:none;
-  z-index:2;
-  object-fit:cover;
-  filter:contrast(1.05) saturate(1.15) brightness(0.96);
-  transition:opacity 0.4s ease;
-}
-
-/* Play Movie Overlay (If browser pauses autoplay) */
-.tasm-play-overlay{
-  position:absolute;
-  inset:0;
-  z-index:5;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.45);
-  cursor:pointer;
-  transition:background 0.3s;
-}
-.tasm-play-overlay.show{
-  display:flex;
-}
-.tasm-play-overlay:hover{
-  background:rgba(0,0,0,0.25);
-}
-.tasm-play-btn-circle{
-  width:84px;
-  height:84px;
-  border-radius:50%;
-  background:linear-gradient(135deg, var(--red), var(--blue));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 40px rgba(229,57,53,0.7), 0 0 80px rgba(41,121,255,0.4);
-  animation:playBtnPulse 2s infinite ease-in-out;
-  transition:transform 0.3s;
-}
-.tasm-play-btn-circle:hover{
-  transform:scale(1.12);
-}
-@keyframes playBtnPulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.08)}
-}
-.tasm-play-btn-circle svg{
-  width:34px;
-  height:34px;
-  fill:#ffffff;
-  margin-left:4px;
-}
-
-/* Auto-open countdown status indicator */
-.tasm-countdown-status{
-  font-size:0.8rem;
-  letter-spacing:2px;
-  color:var(--amber);
-  text-transform:uppercase;
-  font-weight:700;
-  text-shadow:0 0 15px rgba(255,179,0,0.6);
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.tasm-countdown-status .status-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#00e5ff;
-  box-shadow:0 0 10px #00e5ff;
-  animation:dotPulse 1.2s infinite;
-}
-  box-shadow:0 0 15px rgba(229,57,53,0.4);
-}
-
-/* Cinematic Anamorphic Letterbox Bars (Top & Bottom) */
-.tasm-letterbox{
-  position:absolute;
-  left:0;
-  right:0;
-  height:8vh;
-  background:#000000;
-  z-index:10;
-  transition:transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow:0 0 35px rgba(0,0,0,0.9);
-  pointer-events:none;
-}
-.tasm-letterbox.top{
-  top:0;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
-.tasm-letterbox.bottom{
-  bottom:0;
-  border-top:1px solid rgba(255,255,255,0.06);
-}
-.tasm-video-intro.dismissed .tasm-letterbox.top{
-  transform:translateY(-100%);
-}
-.tasm-video-intro.dismissed .tasm-letterbox.bottom{
-  transform:translateY(100%);
-}
-
-/* Cinematic Film Vignette & Texture (Lightened so video/canvas shines through) */
-.tasm-vignette{
-  position:absolute;
-  inset:0;
-  z-index:3;
-  background:radial-gradient(circle at center, transparent 45%, rgba(4, 5, 12, 0.45) 80%, rgba(2, 2, 6, 0.85) 100%);
-  pointer-events:none;
-}
-
-.tasm-vignette::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
-  opacity:0.35;
-  pointer-events:none;
-}
-
-/* Studio Branding Header */
-.tasm-header-bar{
-  position:absolute;
-  top:10vh;
-  left:0;
-  right:0;
-  z-index:15;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 5vw;
-  pointer-events:none;
-}
-
-.tasm-studio-tag{
-  font-size:0.75rem;
-  letter-spacing:4px;
-  color:rgba(255, 255, 255, 0.65);
-  text-transform:uppercase;
-  font-weight:700;
-  text-shadow:0 0 15px rgba(255,255,255,0.3);
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.tasm-studio-tag::before{
-  content:'';
-  display:inline-block;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--red);
-  box-shadow:0 0 10px var(--red);
-  animation:dotPulse 1.8s infinite;
-}
-
-.tasm-movie-badge{
-  font-size:0.72rem;
-  padding:5px 14px;
-  border-radius:999px;
-  background:rgba(229,57,53,0.15);
-  border:1px solid rgba(229,57,53,0.4);
-  color:#ff8a80;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  font-weight:600;
-  backdrop-filter:blur(8px);
-}
-
-/* Center Cinematic Title Card */
-.tasm-center-title{
-  position:relative;
-  z-index:15;
-  text-align:center;
-  padding:0 20px;
-  pointer-events:none;
-  animation:introFloat 5s ease-in-out infinite;
-  max-width:850px;
-}
-@keyframes introFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-
-.tasm-intro-spider-logo{
-  width:68px;
-  height:68px;
-  margin:0 auto 16px;
-  filter:drop-shadow(0 0 25px rgba(229,57,53,0.8)) drop-shadow(0 0 45px rgba(41,121,255,0.5));
-  animation:spiderEmblemBeat 2.2s infinite ease-in-out;
-}
-@keyframes spiderEmblemBeat{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.1) rotate(2deg)}
-}
-
-.tasm-series-title{
-  font-size:clamp(0.85rem, 2vw, 1.15rem);
-  color:var(--amber);
-  letter-spacing:8px;
-  text-transform:uppercase;
-  font-weight:800;
-  margin-bottom:8px;
-  text-shadow:0 0 20px rgba(255,179,0,0.5);
-}
-
-.tasm-main-name{
-  font-size:clamp(2.6rem, 7.5vw, 5.2rem);
-  font-weight:900;
-  line-height:1.05;
-  letter-spacing:-2px;
-  text-transform:uppercase;
-  background:linear-gradient(135deg, #ffffff 0%, #ff5252 35%, #ffd54f 65%, #448aff 100%);
-  background-size:250% auto;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:triGradient 4s ease-in-out infinite;
-  filter:drop-shadow(0 0 35px rgba(229,57,53,0.6));
-}
-
-.tasm-quote-tag{
-  font-size:clamp(0.85rem, 1.8vw, 1.1rem);
-  color:rgba(255, 255, 255, 0.75);
-  font-style:italic;
-  margin-top:12px;
-  letter-spacing:1px;
-  text-shadow:0 2px 10px rgba(0,0,0,0.8);
-}
-
-.tasm-sub-badges{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  margin-top:20px;
-  flex-wrap:wrap;
-}
-.tasm-sub-pill{
-  font-size:0.75rem;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  padding:5px 15px;
-  border-radius:6px;
-  background:rgba(12, 16, 32, 0.7);
-  border:1px solid rgba(255,255,255,0.12);
-  color:var(--cyan);
-  backdrop-filter:blur(8px);
-}
-
-/* Bottom Cinematic HUD Controls */
-.tasm-hud-bottom{
-  position:absolute;
-  bottom:11vh;
-  left:0;
-  right:0;
-  z-index:20;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:16px;
-  padding:0 24px;
-}
-
-.tasm-hud-controls{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.tasm-btn-audio,
-.tasm-btn-enter,
-.tasm-btn-change{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 28px;
-  border-radius:12px;
-  font-size:0.92rem;
-  font-weight:700;
-  text-decoration:none;
-  cursor:pointer;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  transition:all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  border:none;
-}
-
-.tasm-btn-enter{
-  background:linear-gradient(135deg, #e53935 0%, #2979ff 100%);
-  color:#ffffff;
-  box-shadow:0 0 30px rgba(229,57,53,0.5), 0 0 60px rgba(41,121,255,0.3);
-  position:relative;
-  overflow:hidden;
-}
-.tasm-btn-enter:hover{
-  transform:scale(1.06) translateY(-2px);
-  box-shadow:0 0 45px rgba(229,57,53,0.7), 0 0 80px rgba(41,121,255,0.5);
-}
-
-.tasm-btn-audio{
-  background:rgba(20, 24, 48, 0.75);
-  border:1px solid rgba(255, 179, 0, 0.35);
-  color:var(--amber);
-  backdrop-filter:blur(12px);
-  box-shadow:0 0 20px rgba(255,179,0,0.12);
-}
-.tasm-btn-audio:hover{
-  background:rgba(255, 179, 0, 0.15);
-  border-color:var(--amber);
-  transform:translateY(-2px);
-  box-shadow:0 0 30px rgba(255,179,0,0.25);
-}
-
-.tasm-btn-audio .audio-bars{
-  display:flex;
-  align-items:flex-end;
-  gap:2px;
-  height:14px;
-}
-.tasm-btn-audio .audio-bars span{
-  width:3px;
-  background:var(--amber);
-  border-radius:1px;
-  animation:audioWave 1.2s infinite ease-in-out;
-}
-.tasm-btn-audio.muted .audio-bars span{
-  animation:none;
-  height:3px !important;
-  opacity:0.4;
-}
-.tasm-btn-audio .audio-bars span:nth-child(1){height:8px; animation-delay:0s}
-.tasm-btn-audio .audio-bars span:nth-child(2){height:14px; animation-delay:0.2s}
-.tasm-btn-audio .audio-bars span:nth-child(3){height:10px; animation-delay:0.4s}
-@keyframes audioWave{
-  0%,100%{height:4px}
-  50%{height:14px}
-}
-
-.tasm-btn-change{
-  background:rgba(12, 14, 26, 0.6);
-  border:1px solid rgba(255,255,255,0.15);
-  color:rgba(255,255,255,0.65);
-  font-size:0.75rem;
-  padding:10px 18px;
-}
-.tasm-btn-change:hover{
-  color:#fff;
-  border-color:var(--cyan);
-  background:rgba(0, 229, 255, 0.1);
-}
-
-/* Timeline progress */
-.tasm-timeline-bar{
-  width:min(500px, 85vw);
-  height:3px;
-  background:rgba(255,255,255,0.12);
-  border-radius:3px;
-  overflow:hidden;
-  position:relative;
-}
-.tasm-timeline-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg, var(--red), var(--amber), var(--blue));
-  border-radius:3px;
-  transition:width 0.2s linear;
-}
-
-.tasm-hud-hint{
-  font-size:0.72rem;
-  color:rgba(255, 255, 255, 0.4);
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-/* Web Flash Transition Effect */
-.tasm-flash-bang{
-  position:absolute;
-  inset:0;
-  z-index:9999999;
-  background:#ffffff;
-  opacity:0;
-  pointer-events:none;
-}
-.tasm-flash-bang.fire{
-  animation:flashBang 0.75s ease-out forwards;
-}
-
-/* Navbar TASM 2 Intro Replay Button */
-.nav-intro-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(229, 57, 53, 0.12);
-  border:1px solid rgba(229, 57, 53, 0.35);
-  color:#ff8a80;
-  padding:6px 14px;
-  border-radius:8px;
-  font-size:0.82rem;
-  font-weight:700;
-  letter-spacing:0.5px;
-  cursor:pointer;
-  transition:all 0.3s ease;
-  backdrop-filter:blur(8px);
-}
-.nav-intro-btn:hover{
-  background:linear-gradient(135deg, var(--red), var(--blue));
-  color:#ffffff;
-  border-color:transparent;
-  transform:translateY(-2px);
-  box-shadow:0 4px 20px rgba(229,57,53,0.4);
-}
-.nav-intro-btn .btn-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#ff5252;
-  box-shadow:0 0 8px #ff5252;
-  animation:dotPulse 1.8s infinite;
-}
-
-@media(max-width:768px){
-  .tasm-header-bar{top:9vh; padding:0 4vw;}
-  .tasm-hud-bottom{bottom:9vh; gap:12px;}
-  .tasm-btn-enter{padding:10px 20px; font-size:0.82rem;}
-  .tasm-btn-audio{padding:10px 18px; font-size:0.82rem;}
-  .tasm-studio-tag{font-size:0.65rem; letter-spacing:2px;}
-  .tasm-letterbox{height:7vh;}
+  .about-avatar{width:180px;height:180px;font-size:3.8rem}
 }
 </style>
 </head>
 <body class="intro-active">
 
-<!-- ═══════════════ THE AMAZING SPIDER-MAN 2 CINEMATIC INTRO ═══════════════ -->
-<div class="tasm-video-intro" id="tasm-video-intro">
-  <!-- Anamorphic Letterbox Bars -->
-  <div class="tasm-letterbox top"></div>
-  <div class="tasm-letterbox bottom"></div>
+<!-- ═══════════════ MAHABHARATA LOADING SCREEN ═══════════════ -->
+<div class="mahabharat-intro" id="mahabharat-intro">
+  <div class="intro-sacred-bg"></div>
 
-  <!-- Background Video Viewport (The Amazing Spider-Man 2 Movie Clip) -->
-  <div class="tasm-video-viewport" id="tasm-viewport">
-    <!-- Local Official TASM 2 Movie Clip (Instant 4K/HD playback, zero black screens, 100% reliable) -->
-    <video id="tasm-video-player" src="tasm2.mp4" playsinline muted autoplay></video>
+  <!-- Floating embers (generated by JS) -->
+  <div id="ember-container"></div>
 
-    <!-- YouTube Fallback Stream (Official Movieclip: gNPy_CO4zqA) -->
-    <iframe id="tasm-yt-player" 
-      src="https://www.youtube.com/embed/gNPy_CO4zqA?enablejsapi=1&autoplay=1&mute=1&controls=0&loop=0&rel=0&playsinline=1" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen
-      style="display:none;">
-    </iframe>
-
-    <!-- Tap to Play / Unmute Button Overlay if browser stopped autoplay -->
-    <div class="tasm-play-overlay" id="tasm-play-overlay" onclick="startMoviePlayback()">
-      <div class="tasm-play-btn-circle" title="Click to Play Movie Clip">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-    </div>
+  <div class="intro-om" id="intro-om">ॐ</div>
+  <div class="intro-shloka" id="intro-shloka">
+    यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।<br>
+    अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥
   </div>
-
-  <!-- Film Texture & Dark Vignette -->
-  <div class="tasm-vignette"></div>
-
-  <!-- Hidden File Input for Custom Local Video -->
-  <input type="file" id="tasm-video-file-picker" accept="video/mp4,video/webm,video/mov" style="display:none;" onchange="handleTasmVideoFile(event)">
-
-  <!-- Top Studio Bar with Auto-Open Status -->
-  <div class="tasm-header-bar">
-    <div class="tasm-studio-tag">Columbia Pictures • Marvel Entertainment</div>
-    <div class="tasm-countdown-status">
-      <span class="status-dot"></span>
-      <span id="tasm-status-txt">Playing Movie Clip • Auto-opening portfolio</span>
-    </div>
+  <div class="intro-shloka-meaning" id="intro-meaning">
+    "Whenever dharma declines and adharma prevails,<br>
+    I manifest myself — again and again."<br>
+    <span style="font-size:.8em;opacity:.6">— Lord Krishna, Bhagavad Gita 4.7</span>
   </div>
-
-  <!-- Centerpiece Title Card -->
-  <div class="tasm-center-title" id="tasm-center-title">
-    <div class="tasm-intro-spider-logo">
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="50" cy="46" rx="9" ry="12" fill="#e53935"/>
-        <ellipse cx="50" cy="65" rx="11" ry="17" fill="#e53935"/>
-        <!-- Long Spider Legs (TASM 2 suit emblem style) -->
-        <path d="M42 44 Q20 28 8 10" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M58 44 Q80 28 92 10" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M40 48 Q15 42 4 32" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M60 48 Q85 42 96 32" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M40 56 Q15 64 6 82" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M60 56 Q85 64 94 82" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M42 66 Q24 82 14 96" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M58 66 Q76 82 86 96" stroke="#e53935" stroke-width="2.6" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="tasm-series-title">The Amazing Spider-Man Universe</div>
-    <h1 class="tasm-main-name">Pragam Sharma</h1>
-    <p class="tasm-quote-tag">"Every day I wake up knowing that the more people I try to save, the more enemies I will make."</p>
-    <div class="tasm-sub-badges">
-      <span class="tasm-sub-pill">Andrew Garfield Edit</span>
-      <span class="tasm-sub-pill">NST-RU • First Year</span>
-      <span class="tasm-sub-pill">Hans Zimmer Theme</span>
-    </div>
+  <div class="intro-progress-wrap">
+    <div class="intro-progress-bar" id="intro-progress"></div>
   </div>
-
-  <!-- Bottom HUD -->
-  <div class="tasm-hud-bottom">
-    <div class="tasm-hud-controls">
-      <button class="tasm-btn-audio muted" id="tasm-sound-toggle" onclick="toggleTasmAudio()" title="Toggle movie audio">
-        <div class="audio-bars">
-          <span></span><span></span><span></span>
-        </div>
-        <span id="tasm-sound-text">Sound: Muted (Click to Unmute)</span>
-      </button>
-
-      <button class="tasm-btn-enter" onclick="dismissTasmIntro()">
-        <span>Enter Spider-Verse</span>
-        <span>↗</span>
-      </button>
-    </div>
-
-    <!-- Timeline Progress -->
-    <div class="tasm-timeline-bar">
-      <div class="tasm-timeline-fill" id="tasm-timeline-fill"></div>
-    </div>
-    <div class="tasm-hud-hint">Press <strong>[ESC]</strong> or <strong>[SPACE]</strong> to Skip Intro</div>
-  </div>
-
-  <!-- White Flash Web-Shoot Transition -->
-  <div class="tasm-flash-bang" id="tasm-flash"></div>
+  <div class="intro-subtitle">The Battlefield Awaits</div>
+  <button class="intro-enter-btn" onclick="dismissIntro()">
+    Enter Kurukshetra ⚔️
+  </button>
+  <div class="intro-flash" id="intro-flash"></div>
 </div>
 
-<!-- BACKGROUND CANVAS (particles + web connections) -->
+<!-- BACKGROUND CANVAS (sacred particles) -->
 <canvas id="bg-canvas"></canvas>
-<div class="web-bg"></div>
+<div class="divine-bg"></div>
 
-<!-- ═══════════════ ANIMATED SPIDER-MAN CHARACTER ═══════════════ -->
-<div class="spidey-container" id="spidey-container">
-  <div class="spidey-web-line" id="spidey-web"></div>
-  <div class="spidey-char swinging" id="spidey-char">
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <!-- BODY -->
-      <ellipse cx="60" cy="38" rx="18" ry="20" fill="#d32f2f"/>
-      <!-- Head web pattern -->
-      <line x1="60" y1="18" x2="60" y2="58" stroke="#1a1a2e" stroke-width=".8" opacity=".5"/>
-      <line x1="42" y1="38" x2="78" y2="38" stroke="#1a1a2e" stroke-width=".8" opacity=".5"/>
-      <line x1="45" y1="22" x2="75" y2="54" stroke="#1a1a2e" stroke-width=".6" opacity=".4"/>
-      <line x1="75" y1="22" x2="45" y2="54" stroke="#1a1a2e" stroke-width=".6" opacity=".4"/>
-      <ellipse cx="60" cy="38" rx="18" ry="20" fill="none" stroke="#1a1a2e" stroke-width=".5" opacity=".3"/>
-      <ellipse cx="60" cy="38" rx="12" ry="13" fill="none" stroke="#1a1a2e" stroke-width=".5" opacity=".3"/>
-      <ellipse cx="60" cy="38" rx="6" ry="7" fill="none" stroke="#1a1a2e" stroke-width=".5" opacity=".3"/>
-      <!-- Eyes (TASM big golden-white) -->
-      <ellipse cx="50" cy="35" rx="7" ry="9" fill="white" transform="rotate(-10 50 35)"/>
-      <ellipse cx="70" cy="35" rx="7" ry="9" fill="white" transform="rotate(10 70 35)"/>
-      <ellipse cx="50" cy="35" rx="5.5" ry="7.5" fill="#fffde7" transform="rotate(-10 50 35)"/>
-      <ellipse cx="70" cy="35" rx="5.5" ry="7.5" fill="#fffde7" transform="rotate(10 70 35)"/>
-      <!-- Torso -->
-      <path d="M48 56 Q60 62 72 56 L70 82 Q60 88 50 82 Z" fill="#1565c0"/>
-      <!-- Spider emblem on chest -->
-      <ellipse cx="60" cy="66" rx="3" ry="4" fill="#d32f2f"/>
-      <line x1="57" y1="63" x2="52" y2="58" stroke="#d32f2f" stroke-width="1.2" stroke-linecap="round"/>
-      <line x1="63" y1="63" x2="68" y2="58" stroke="#d32f2f" stroke-width="1.2" stroke-linecap="round"/>
-      <line x1="57" y1="66" x2="50" y2="65" stroke="#d32f2f" stroke-width="1.2" stroke-linecap="round"/>
-      <line x1="63" y1="66" x2="70" y2="65" stroke="#d32f2f" stroke-width="1.2" stroke-linecap="round"/>
-      <line x1="57" y1="69" x2="53" y2="73" stroke="#d32f2f" stroke-width="1.2" stroke-linecap="round"/>
-      <line x1="63" y1="69" x2="67" y2="73" stroke="#d32f2f" stroke-width="1.2" stroke-linecap="round"/>
-      <!-- Arms (outstretched, webbing pose) -->
-      <path d="M42 58 Q28 48 14 42" stroke="#d32f2f" stroke-width="7" fill="none" stroke-linecap="round"/>
-      <path d="M78 58 Q92 48 106 42" stroke="#d32f2f" stroke-width="7" fill="none" stroke-linecap="round"/>
-      <!-- Hands (web-shooting gesture) -->
-      <circle cx="12" cy="41" r="4" fill="#d32f2f"/>
-      <line x1="8" y1="38" x2="4" y2="34" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
-      <line x1="10" y1="37" x2="8" y2="32" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="108" cy="41" r="4" fill="#d32f2f"/>
-      <line x1="112" y1="38" x2="116" y2="34" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
-      <line x1="110" y1="37" x2="112" y2="32" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
-      <!-- Web lines from hands -->
-      <line x1="4" y1="34" x2="0" y2="20" stroke="white" stroke-width=".8" opacity=".6"/>
-      <line x1="4" y1="34" x2="0" y2="28" stroke="white" stroke-width=".6" opacity=".4"/>
-      <line x1="116" y1="34" x2="120" y2="20" stroke="white" stroke-width=".8" opacity=".6"/>
-      <line x1="116" y1="34" x2="120" y2="28" stroke="white" stroke-width=".6" opacity=".4"/>
-      <!-- Legs -->
-      <path d="M54 82 Q48 96 42 110" stroke="#d32f2f" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M66 82 Q72 96 78 110" stroke="#d32f2f" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <!-- Boots -->
-      <rect x="38" y="106" width="9" height="6" rx="3" fill="#d32f2f"/>
-      <rect x="74" y="106" width="9" height="6" rx="3" fill="#d32f2f"/>
-    </svg>
-  </div>
-</div>
+<!-- Background Audio — B.R. Chopra Mahabharat Theme -->
+<audio id="mahabharat-audio" loop preload="auto">
+  <source src="mahabharat-theme.mp3" type="audio/mpeg">
+</audio>
 
 <!-- ═══════════════ NAVIGATION ═══════════════ -->
 <nav class="nav" id="navbar">
-  <a href="#hero" class="nav-logo">&lt;PS/&gt;</a>
+  <a href="#hero" class="nav-logo">॥ PS ॥</a>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links" id="nav-links">
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#hobbies">Hobbies</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><button class="nav-intro-btn" onclick="openTasmIntro()" title="Watch The Amazing Spider-Man 2 Swinging Scene Intro"><span class="btn-dot"></span>🎬 Movie Intro</button></li>
+    <li><a href="#skills">Astras</a></li>
+    <li><a href="#hobbies">Dharma</a></li>
+    <li><a href="#projects">Campaigns</a></li>
+    <li><a href="#contact">Council</a></li>
+    <li>
+      <button class="nav-audio-btn paused" id="audio-toggle" onclick="toggleAudio()" title="Play/Pause Mahabharat Theme">
+        <div class="audio-bars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span id="audio-text">♪ Theme</span>
+      </button>
+    </li>
   </ul>
 </nav>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ═══════════════ HERO — KURUKSHETRA ═══════════════ -->
 <section class="hero" id="hero">
-  <div class="hero-glow-amber"></div>
-  <svg class="spider-emblem" viewBox="0 0 200 200" fill="none">
-    <circle cx="100" cy="100" r="95" stroke="rgba(229,57,53,.25)" stroke-width=".5"/>
-    <circle cx="100" cy="100" r="70" stroke="rgba(255,179,0,.15)" stroke-width=".5"/>
-    <circle cx="100" cy="100" r="45" stroke="rgba(229,57,53,.12)" stroke-width=".5"/>
-    <circle cx="100" cy="100" r="20" stroke="rgba(255,179,0,.1)" stroke-width=".5"/>
-    <line x1="100" y1="0" x2="100" y2="200" stroke="rgba(229,57,53,.12)" stroke-width=".5"/>
-    <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(229,57,53,.12)" stroke-width=".5"/>
-    <line x1="15" y1="15" x2="185" y2="185" stroke="rgba(255,179,0,.08)" stroke-width=".5"/>
-    <line x1="185" y1="15" x2="15" y2="185" stroke="rgba(255,179,0,.08)" stroke-width=".5"/>
-    <line x1="50" y1="0" x2="50" y2="200" stroke="rgba(229,57,53,.06)" stroke-width=".3"/>
-    <line x1="150" y1="0" x2="150" y2="200" stroke="rgba(229,57,53,.06)" stroke-width=".3"/>
-    <ellipse cx="100" cy="94" rx="8" ry="10" fill="rgba(229,57,53,.2)"/>
-    <ellipse cx="100" cy="112" rx="10" ry="14" fill="rgba(229,57,53,.2)"/>
-    <path d="M92 94 Q68 76 50 55" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M108 94 Q132 76 150 55" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M90 100 Q62 93 40 78" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M110 100 Q138 93 160 78" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M90 108 Q62 118 40 135" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M110 108 Q138 118 160 135" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M92 116 Q68 134 50 155" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
-    <path d="M108 116 Q132 134 150 155" stroke="rgba(229,57,53,.15)" stroke-width="1.5" fill="none"/>
+  <div class="hero-glow-divine"></div>
+
+  <!-- Sudarshana Chakra Watermark -->
+  <svg class="chakra-emblem" viewBox="0 0 200 200" fill="none">
+    <circle cx="100" cy="100" r="95" stroke="rgba(196,149,22,.15)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="70" stroke="rgba(224,107,16,.09)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="45" stroke="rgba(196,149,22,.07)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="20" stroke="rgba(224,107,16,.06)" stroke-width=".5"/>
+    <!-- Spokes of the Chakra -->
+    <line x1="100" y1="5" x2="100" y2="195" stroke="rgba(196,149,22,.07)" stroke-width=".5"/>
+    <line x1="5" y1="100" x2="195" y2="100" stroke="rgba(196,149,22,.07)" stroke-width=".5"/>
+    <line x1="17" y1="17" x2="183" y2="183" stroke="rgba(224,107,16,.04)" stroke-width=".5"/>
+    <line x1="183" y1="17" x2="17" y2="183" stroke="rgba(224,107,16,.04)" stroke-width=".5"/>
+    <line x1="100" y1="5" x2="146" y2="183" stroke="rgba(196,149,22,.03)" stroke-width=".3"/>
+    <line x1="100" y1="5" x2="54" y2="183" stroke="rgba(196,149,22,.03)" stroke-width=".3"/>
+    <line x1="5" y1="100" x2="183" y2="146" stroke="rgba(196,149,22,.03)" stroke-width=".3"/>
+    <line x1="5" y1="100" x2="183" y2="54" stroke="rgba(196,149,22,.03)" stroke-width=".3"/>
+    <!-- Center Om -->
+    <text x="100" y="108" text-anchor="middle" font-size="24" fill="rgba(196,149,22,.06)" font-family="serif">ॐ</text>
   </svg>
 
   <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span>Available for collaboration</div>
+    <div class="hero-badge"><span class="dot"></span>Ready for the Great Battle</div>
     <h1 class="hero-name">
       <span class="first">Pragam</span>
       <span class="last">Sharma</span>
     </h1>
-    <p class="hero-tagline">First Year Student at NST-RU — Curious mind, creative soul, and your friendly neighbourhood coder.</p>
-    <p class="hero-tasm-tag">⚡ The Untold Story ⚡</p>
+    <p class="hero-tagline">First Year Warrior at NST-RU — A seeker of knowledge, a wielder of code, and a soul forged on the battlefield of curiosity.</p>
+    <p class="hero-dharma-tag">॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</p>
     <div class="hero-typing"><span id="typed"></span><span class="cursor"></span></div>
     <div class="hero-cta">
-      <a href="#projects" class="btn-p">View My Work ↗</a>
-      <a href="#contact" class="btn-s">Get In Touch</a>
+      <a href="#projects" class="btn-p">View My Campaigns ⚔️</a>
+      <a href="#contact" class="btn-s">Join the Council</a>
     </div>
   </div>
   <div class="scroll-ind"><div class="mouse"></div><span>Scroll</span></div>
@@ -1374,24 +1003,25 @@ body.intro-active{
 
 <div class="divider"></div>
 
-<!-- ═══════════════ ABOUT ═══════════════ -->
+<!-- ═══════════════ ABOUT — THE WARRIOR'S CHRONICLE ═══════════════ -->
 <section id="about">
   <div class="section-wrap">
-    <h2 class="section-title reveal">About Me</h2>
-    <p class="section-sub reveal d1">The untold story behind the mask</p>
+    <div class="section-sanskrit reveal">॥ अथ योद्धा कथा ॥</div>
+    <h2 class="section-title reveal">The Warrior's Chronicle</h2>
+    <p class="section-sub reveal d1">Like Arjuna before the war — disciplined, relentless, and ever-learning</p>
     <div class="about-grid">
       <div class="reveal d2" style="display:flex;justify-content:center">
-        <div class="about-avatar">🕷️</div>
+        <div class="about-avatar">🏹</div>
       </div>
       <div class="about-text">
-        <h3 class="reveal d2">Hey, I'm Pragam!</h3>
-        <p class="reveal d3">A first-year student at <strong>NST-RU</strong> with an insatiable curiosity and a relentless drive to figure things out. Like a certain web-slinger who built his own web-shooters from scratch, I believe in earning your powers through grit, late nights, and an obsessive love for learning.</p>
-        <p class="reveal d3">When I'm not deep in code or sculpting worlds in Blender, you'll find me on the football pitch, filling sketchbooks with ideas, or singing like nobody's listening. I move fast, break things, learn from it, and come back stronger — every single time.</p>
+        <h3 class="reveal d2">Namaste, I'm Pragam!</h3>
+        <p class="reveal d3">A first-year student at <strong>NST-RU</strong>, walking the path of dharma through code, creativity, and unwavering discipline. Like Arjuna who mastered every astra through years of devoted practice, I believe that true mastery is earned — through grit, sleepless nights, and an obsessive love for the craft.</p>
+        <p class="reveal d3">When I'm not writing code or sculpting worlds in Blender, you'll find me on the football battlefield, filling sketchbooks with visions, or singing like Krishna's flute at dawn. I rise after every fall, learn from every defeat, and charge forward — because that is my dharma.</p>
         <div class="about-stats reveal d4">
           <div class="about-stat"><div class="num" data-count="1">0</div><div class="lbl">Year</div></div>
-          <div class="about-stat"><div class="num" data-count="3">0</div><div class="lbl">Skills</div></div>
-          <div class="about-stat"><div class="num" data-count="4">0</div><div class="lbl">Hobbies</div></div>
-          <div class="about-stat"><div class="num" data-count="99">0</div><div class="lbl">% Passion</div></div>
+          <div class="about-stat"><div class="num" data-count="3">0</div><div class="lbl">Astras</div></div>
+          <div class="about-stat"><div class="num" data-count="4">0</div><div class="lbl">Paths</div></div>
+          <div class="about-stat"><div class="num" data-count="99">0</div><div class="lbl">% Dharma</div></div>
         </div>
       </div>
     </div>
@@ -1400,32 +1030,33 @@ body.intro-active{
 
 <div class="divider"></div>
 
-<!-- ═══════════════ SKILLS ═══════════════ -->
+<!-- ═══════════════ SKILLS — DIVINE ASTRAS ═══════════════ -->
 <section id="skills">
   <div class="section-wrap">
-    <h2 class="section-title reveal">Skills & Arsenal</h2>
-    <p class="section-sub reveal d1">Every hero needs the right tools</p>
+    <div class="section-sanskrit reveal">॥ दिव्यास्त्र शस्त्रागार ॥</div>
+    <h2 class="section-title reveal">Divine Astras</h2>
+    <p class="section-sub reveal d1">Every great warrior carries weapons blessed by the gods</p>
     <div class="skills-grid">
       <div class="skill-card reveal d1">
         <div class="skill-icon py">🐍</div>
-        <h3>Python</h3>
-        <p>Building the foundation — scripting, problem-solving and learning the language that powers everything from AI to automation.</p>
+        <h3>Python — Naagastra</h3>
+        <p>Like the serpent weapon of the ancients — powerful, precise, and versatile. Building the foundation of logic, scripting, and the language that powers realms from AI to automation.</p>
         <div class="bar-wrap"><div class="bar" data-w="40"></div></div>
-        <div class="skill-level"><span>Learning & Growing</span><span class="level-tag">Beginner</span></div>
+        <div class="skill-level"><span>Sharpening the Blade</span><span class="level-tag">Apprentice</span></div>
       </div>
       <div class="skill-card reveal d2">
         <div class="skill-icon cli">⌨️</div>
-        <h3>Command Line (CLI)</h3>
-        <p>Navigating the terminal like a true hacker — file management, git commands and system operations at the speed of thought.</p>
+        <h3>CLI — Vayu Astra</h3>
+        <p>Swift as Vayu, the wind god — navigating the terminal with speed and precision. File mastery, git commands, and system operations executed at the speed of thought.</p>
         <div class="bar-wrap"><div class="bar" data-w="35"></div></div>
-        <div class="skill-level"><span>Building Muscle Memory</span><span class="level-tag">Beginner</span></div>
+        <div class="skill-level"><span>Channelling the Wind</span><span class="level-tag">Apprentice</span></div>
       </div>
       <div class="skill-card reveal d3">
         <div class="skill-icon bl">🎨</div>
-        <h3>Blender</h3>
-        <p>Shaping ideas into reality — 3D modelling, sculpting and bringing creative visions to life in three dimensions.</p>
+        <h3>Blender — Vishwakarma's Forge</h3>
+        <p>Like Vishwakarma, architect of the gods — shaping ideas into three-dimensional reality. 3D modelling, sculpting, and bringing creative visions to life.</p>
         <div class="bar-wrap"><div class="bar" data-w="45"></div></div>
-        <div class="skill-level"><span>Creative Explorer</span><span class="level-tag">Beginner</span></div>
+        <div class="skill-level"><span>Divine Craftsman</span><span class="level-tag">Apprentice</span></div>
       </div>
     </div>
   </div>
@@ -1433,27 +1064,28 @@ body.intro-active{
 
 <div class="divider"></div>
 
-<!-- ═══════════════ HOBBIES ═══════════════ -->
+<!-- ═══════════════ HOBBIES — PATHS OF DHARMA ═══════════════ -->
 <section id="hobbies">
   <div class="section-wrap">
-    <h2 class="section-title reveal">Hobbies & Passions</h2>
-    <p class="section-sub reveal d1">What I do when I'm not saving the city</p>
+    <div class="section-sanskrit reveal">॥ धर्म मार्ग ॥</div>
+    <h2 class="section-title reveal">Paths of Dharma</h2>
+    <p class="section-sub reveal d1">Beyond the battlefield — the pursuits that forge the warrior's soul</p>
     <div class="hobbies-grid">
       <div class="hobby-card reveal d1">
-        <span class="emoji">⚽</span><h3>Football</h3>
-        <p>There's nothing like the rush of a perfect pass or a last-minute goal. The pitch is my battlefield — minus the supervillains.</p>
+        <span class="emoji">⚽</span><h3>The Battlefield — Football</h3>
+        <p>Like the great Kurukshetra but with a ball — strategy, teamwork, and the rush of a last-minute victory. The pitch is where warriors are tested and legends are born.</p>
       </div>
       <div class="hobby-card reveal d2">
-        <span class="emoji">✏️</span><h3>Sketching</h3>
-        <p>From doodles in the margin to full portraits — my sketchbook is where imagination meets the page, one stroke at a time.</p>
+        <span class="emoji">✏️</span><h3>The Artisan's Hand — Sketching</h3>
+        <p>From battle diagrams to portraits of heroes — my sketchbook holds visions of worlds yet to be built. Every stroke is a meditation, every page a new kingdom.</p>
       </div>
       <div class="hobby-card reveal d3">
-        <span class="emoji">🎤</span><h3>Singing</h3>
-        <p>Whether it's belting out classics or humming in the shower — music is the soundtrack to my life. Don't worry, I keep it mostly in tune.</p>
+        <span class="emoji">🎵</span><h3>Krishna's Flute — Singing</h3>
+        <p>Like the divine melody that enchanted Vrindavan — music flows through the soul. Whether ancient ragas or modern melodies, the voice is the oldest instrument of devotion.</p>
       </div>
-      <div class="hobby-card spider reveal d4">
-        <span class="emoji">🕷️</span><h3>Saving the World</h3>
-        <p>Friendly neighbourhood hero, one day at a time! With great power comes great… homework. But somebody's gotta look out for the little guy. 🕸️</p>
+      <div class="hobby-card krishna reveal d4">
+        <span class="emoji">🔱</span><h3>The Eternal Quest — Seeking Knowledge</h3>
+        <p>Like Arjuna who sought wisdom from every guru across the land — the quest for knowledge never ends. Every book read, every concept mastered, is an arrow added to the quiver. 📜</p>
       </div>
     </div>
   </div>
@@ -1461,37 +1093,38 @@ body.intro-active{
 
 <div class="divider"></div>
 
-<!-- ═══════════════ PROJECTS ═══════════════ -->
+<!-- ═══════════════ PROJECTS — BATTLE CAMPAIGNS ═══════════════ -->
 <section id="projects">
   <div class="section-wrap">
-    <h2 class="section-title reveal">Projects</h2>
-    <p class="section-sub reveal d1">My web of creations</p>
+    <div class="section-sanskrit reveal">॥ रणभूमि अभियान ॥</div>
+    <h2 class="section-title reveal">Battle Campaigns</h2>
+    <p class="section-sub reveal d1">Each project — a battle won on the fields of creation</p>
     <div class="projects-grid">
       <div class="project-card reveal d1">
-        <div class="proj-thumb p1">🕸️</div>
+        <div class="proj-thumb p1">🏛️</div>
         <div class="proj-info">
-          <h3>Portfolio Website</h3>
-          <p>This very portfolio — a cinematic Spider-Man inspired showcase built with pure HTML, CSS and JavaScript. Zero frameworks, maximum style.</p>
+          <h3>Portfolio — The Grand Sabha</h3>
+          <p>This very portfolio — a cinematic Mahabharata-inspired showcase forged with pure HTML, CSS and JavaScript. Zero frameworks, maximum devotion. Like Indraprastha built by the Pandavas.</p>
           <div class="proj-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-          <a href="#hero" class="proj-link">View Live ↗</a>
+          <a href="#hero" class="proj-link">View Live ⚔️</a>
         </div>
       </div>
       <div class="project-card reveal d2">
         <div class="proj-thumb p2">🐍</div>
         <div class="proj-info">
-          <h3>Python Experiments</h3>
-          <p>A growing collection of Python scripts and mini-projects — from calculators to automation scripts. Every line of code is a step forward.</p>
+          <h3>Python Experiments — The War Room</h3>
+          <p>A growing arsenal of Python scripts and mini-projects — from calculators to automation weapons. Each line of code is an arrow loosed, a battle strategy refined.</p>
           <div class="proj-tags"><span>Python</span><span>Scripting</span></div>
-          <a href="#" class="proj-link">Coming Soon ↗</a>
+          <a href="#" class="proj-link">Coming Soon ⚔️</a>
         </div>
       </div>
       <div class="project-card reveal d3">
         <div class="proj-thumb p3">🎨</div>
         <div class="proj-info">
-          <h3>3D Creations</h3>
-          <p>Blender renders and 3D models — from abstract art to character concepts. Turning imagination into polygons and pixels.</p>
+          <h3>3D Creations — Vishwakarma's Workshop</h3>
+          <p>Blender renders and 3D models — from divine temples to warrior concepts. Like the celestial architect, turning imagination into tangible realms of art.</p>
           <div class="proj-tags"><span>Blender</span><span>3D Art</span><span>Creative</span></div>
-          <a href="#" class="proj-link">Coming Soon ↗</a>
+          <a href="#" class="proj-link">Coming Soon ⚔️</a>
         </div>
       </div>
     </div>
@@ -1500,25 +1133,26 @@ body.intro-active{
 
 <div class="divider"></div>
 
-<!-- ═══════════════ CONTACT ═══════════════ -->
+<!-- ═══════════════ CONTACT — COUNCIL OF WAR ═══════════════ -->
 <section id="contact">
   <div class="section-wrap">
-    <h2 class="section-title reveal">Get In Touch</h2>
-    <p class="section-sub reveal d1">Let's team up — even Spider-Man needs allies</p>
+    <div class="section-sanskrit reveal">॥ युद्ध परिषद ॥</div>
+    <h2 class="section-title reveal">Council of War</h2>
+    <p class="section-sub reveal d1">Let us forge an alliance — even the Pandavas needed allies</p>
     <div class="contact-grid">
       <div class="contact-info reveal d2">
-        <h3>Let's Connect</h3>
-        <p>Got an idea, a project, or just want to say hi? My spider-sense is always tingling for great opportunities.</p>
-        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-label">Location</div><div class="c-value">NST-RU, India</div></div></div>
-        <div class="c-item"><div class="c-icon">🎓</div><div><div class="c-label">University</div><div class="c-value">NST-RU — First Year</div></div></div>
-        <div class="c-item"><div class="c-icon">⚡</div><div><div class="c-label">Status</div><div class="c-value">Open to Collaborate</div></div></div>
+        <h3>Let Us Unite</h3>
+        <p>Got an idea, a vision, or a quest? Like Krishna who allied with the Pandavas, great things are achieved when warriors come together.</p>
+        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-label">Kingdom</div><div class="c-value">NST-RU, Bharat</div></div></div>
+        <div class="c-item"><div class="c-icon">🏛️</div><div><div class="c-label">Gurukul</div><div class="c-value">NST-RU — First Year</div></div></div>
+        <div class="c-item"><div class="c-icon">⚔️</div><div><div class="c-label">Status</div><div class="c-value">Ready for Battle</div></div></div>
       </div>
       <form class="contact-form reveal d3" onsubmit="handleSubmit(event)">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <input type="text" placeholder="Subject">
-        <textarea placeholder="Your Message..." required></textarea>
-        <button type="submit" class="btn-p" style="align-self:flex-start">Send Message 🕸️</button>
+        <input type="text" placeholder="Your Name, Warrior" required>
+        <input type="email" placeholder="Your Raven (Email)" required>
+        <input type="text" placeholder="Subject of Discourse">
+        <textarea placeholder="Your Message to the Council..." required></textarea>
+        <button type="submit" class="btn-p" style="align-self:flex-start">Send Message 🕊️</button>
       </form>
     </div>
   </div>
@@ -1526,244 +1160,149 @@ body.intro-active{
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer class="footer">
-  <p>Crafted with <span class="heart">♥</span> by Pragam Sharma &copy; 2026</p>
-  <p class="footer-sub">🕸 "I made a choice. This is my path." 🕸</p>
+  <p>Forged with <span class="flame">🔥</span> by Pragam Sharma &copy; 2026</p>
+  <p class="footer-dharma">॥ यतो धर्मस्ततो जयः ॥ — Where there is Dharma, there is Victory</p>
 </footer>
 
-<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<!-- ═══════════════ JAVASCRIPT — OVERHAULED ═══════════════ -->
 <script>
-/* ─── THE AMAZING SPIDER-MAN 2 MOVIE CLIP INTRO CONTROLLER ─── */
-let isTasmAudioMuted = true;
-let movieTotalDuration = 45; // Default clip duration in seconds
-let ytPlayer = null;
+/* ─── MAHABHARAT LOADING ANIMATION ─── */
+let introProgress = 0;
+let introTimer = null;
 
-// Initialize Video Setup on Page Load
-document.addEventListener('DOMContentLoaded', initMovieIntro);
-
-function initMovieIntro() {
-  const video = document.getElementById('tasm-video-player');
-  const overlay = document.getElementById('tasm-play-overlay');
-  
-  if (video) {
-    // Read video metadata when loaded
-    video.addEventListener('loadedmetadata', function() {
-      if (video.duration && !isNaN(video.duration)) {
-        movieTotalDuration = video.duration;
-      }
-    });
-
-    // Update real-time progress & countdown
-    video.addEventListener('timeupdate', function() {
-      if (video.duration) {
-        const remaining = Math.max(0, Math.ceil(video.duration - video.currentTime));
-        const pct = (video.currentTime / video.duration) * 100;
-        const bar = document.getElementById('tasm-timeline-fill');
-        const statusTxt = document.getElementById('tasm-status-txt');
-        
-        if (bar) bar.style.width = pct + '%';
-        if (statusTxt) {
-          statusTxt.textContent = `Playing TASM 2 Movie Clip • Auto-opening in ${remaining}s`;
-        }
-      }
-    });
-
-    // AUTO-OPEN PORTFOLIO WHEN MOVIE CLIP FINISHES
-    video.addEventListener('ended', function() {
-      dismissTasmIntro();
-    });
-
-    // Handle video load errors (fallback to YouTube stream)
-    video.addEventListener('error', function(err) {
-      console.warn('Local video load failed, switching to YouTube stream:', err);
-      switchToYouTubeFallback();
-    });
-
-    // Start video playback
-    video.play().catch(function(err) {
-      console.log('Browser autoplay policy held video, showing play overlay:', err);
-      if (overlay) overlay.classList.add('show');
-    });
-  }
-}
-
-// YouTube Fallback (only used if local tasm2.mp4 is missing)
-function switchToYouTubeFallback() {
-  const video = document.getElementById('tasm-video-player');
-  const iframe = document.getElementById('tasm-yt-player');
-  if (video) video.style.display = 'none';
-  if (iframe) {
-    iframe.style.display = 'block';
-    startFallbackTimeline();
-  }
-}
-
-function startFallbackTimeline() {
-  const bar = document.getElementById('tasm-timeline-fill');
-  const statusTxt = document.getElementById('tasm-status-txt');
-  const startTime = Date.now();
-  
-  const timer = setInterval(function() {
-    const elapsed = (Date.now() - startTime) / 1000;
-    const remaining = Math.max(0, Math.ceil(movieTotalDuration - elapsed));
-    const pct = Math.min(100, (elapsed / movieTotalDuration) * 100);
-    
-    if (bar) bar.style.width = pct + '%';
-    if (statusTxt) statusTxt.textContent = `Playing TASM 2 Movie Clip • Auto-opening in ${remaining}s`;
-    
-    if (elapsed >= movieTotalDuration) {
-      clearInterval(timer);
-      dismissTasmIntro();
+document.addEventListener('DOMContentLoaded', function() {
+  // Generate floating embers
+  const emberContainer = document.getElementById('ember-container');
+  if (emberContainer) {
+    for (let i = 0; i < 25; i++) {
+      const ember = document.createElement('div');
+      ember.className = 'intro-ember';
+      ember.style.left = Math.random() * 100 + '%';
+      ember.style.bottom = '-10px';
+      ember.style.width = (2 + Math.random() * 3) + 'px';
+      ember.style.height = ember.style.width;
+      ember.style.animationDuration = (4 + Math.random() * 6) + 's';
+      ember.style.animationDelay = Math.random() * 5 + 's';
+      ember.style.opacity = .25 + Math.random() * .4;
+      ember.style.background = ['#c49516','#e06b10','#9b1b1b','#dbb520'][Math.floor(Math.random()*4)];
+      emberContainer.appendChild(ember);
     }
-  }, 250);
-}
-
-// User-Triggered Start (bypasses browser autoplay restrictions)
-window.startMoviePlayback = function() {
-  const overlay = document.getElementById('tasm-play-overlay');
-  const video = document.getElementById('tasm-video-player');
-  if (overlay) overlay.classList.remove('show');
-  
-  if (video && video.style.display !== 'none') {
-    video.muted = false;
-    isTasmAudioMuted = false;
-    video.play();
-    updateSoundButtonUI(false);
   }
-};
 
-// Sound Toggle
-window.toggleTasmAudio = function() {
-  const video = document.getElementById('tasm-video-player');
-  isTasmAudioMuted = !isTasmAudioMuted;
-  
-  if (video && video.style.display !== 'none') {
-    video.muted = isTasmAudioMuted;
-  }
-  updateSoundButtonUI(isTasmAudioMuted);
-};
+  // Progress bar animation
+  const progressBar = document.getElementById('intro-progress');
+  const startTime = Date.now();
+  const totalDuration = 6000; // 6 seconds
 
-function updateSoundButtonUI(muted) {
-  const btn = document.getElementById('tasm-sound-toggle');
-  const txt = document.getElementById('tasm-sound-text');
-  
-  if (!muted) {
-    if (btn) btn.classList.remove('muted');
-    if (txt) txt.textContent = 'Sound: ON (Movie Audio)';
-  } else {
-    if (btn) btn.classList.add('muted');
-    if (txt) txt.textContent = 'Sound: Muted (Click to Unmute)';
-  }
-}
+  introTimer = setInterval(function() {
+    const elapsed = Date.now() - startTime;
+    introProgress = Math.min(100, (elapsed / totalDuration) * 100);
+    if (progressBar) progressBar.style.width = introProgress + '%';
 
-// Dismiss Intro & Smoothly Transition into Portfolio
-window.dismissTasmIntro = function() {
-  const intro = document.getElementById('tasm-video-intro');
-  const flash = document.getElementById('tasm-flash');
-  const video = document.getElementById('tasm-video-player');
-  
+    if (introProgress >= 100) {
+      clearInterval(introTimer);
+      // Auto dismiss after completion
+      setTimeout(function() { dismissIntro(); }, 800);
+    }
+  }, 50);
+});
+
+window.dismissIntro = function() {
+  const intro = document.getElementById('mahabharat-intro');
+  const flash = document.getElementById('intro-flash');
+
+  if (introTimer) clearInterval(introTimer);
+
   if (flash) {
     flash.classList.remove('fire');
     void flash.offsetWidth;
     flash.classList.add('fire');
   }
-  
+
   setTimeout(function() {
     if (intro) intro.classList.add('dismissed');
     document.body.classList.remove('intro-active');
-    if (video) video.pause();
-  }, 220);
+    // Trigger hero staggered entrance
+    startHeroEntrance();
+  }, 250);
 };
 
-// Replay Movie Intro from Navbar
-window.openTasmIntro = function() {
-  const intro = document.getElementById('tasm-video-intro');
-  const video = document.getElementById('tasm-video-player');
-  
-  if (intro) {
-    intro.classList.remove('dismissed');
-    document.body.classList.add('intro-active');
-    
-    if (video && video.style.display !== 'none') {
-      video.currentTime = 0;
-      video.play();
+// ESC or Spacebar to skip intro
+window.addEventListener('keydown', function(e) {
+  const intro = document.getElementById('mahabharat-intro');
+  if (intro && !intro.classList.contains('dismissed')) {
+    if (e.key === 'Escape' || e.code === 'Space') {
+      e.preventDefault();
+      dismissIntro();
     }
   }
-};
+});
 
-// Drag and drop video file support
-window.handleTasmVideoFile = function(e) {
-  const file = e.target.files && e.target.files[0];
-  if (!file) return;
-  loadCustomVideoFile(file);
-};
-
-function loadCustomVideoFile(file) {
-  const video = document.getElementById('tasm-video-player');
-  const iframe = document.getElementById('tasm-yt-player');
-  if (iframe) iframe.style.display = 'none';
-  if (video) {
-    video.style.display = 'block';
-    video.src = URL.createObjectURL(file);
-    video.muted = isTasmAudioMuted;
-    video.play();
-  }
+/* ─── HERO STAGGERED ENTRANCE ─── */
+function startHeroEntrance(){
+  const els = document.querySelectorAll('.hero-badge,.hero-name,.hero-tagline,.hero-dharma-tag,.hero-typing,.hero-cta,.scroll-ind');
+  els.forEach(function(el,i){
+    setTimeout(function(){
+      el.style.transition = 'opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1)';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 100 + i * 90);
+  });
 }
 
-window.addEventListener('dragover', function(e) { e.preventDefault(); });
-window.addEventListener('drop', function(e) {
-  const intro = document.getElementById('tasm-video-intro');
-  if (intro && !intro.classList.contains('dismissed')) {
-    e.preventDefault();
-    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      if (file.type.startsWith('video/')) {
-        loadCustomVideoFile(file);
-      }
-    }
-  }
-});
+/* ─── BACKGROUND AUDIO CONTROLLER ─── */
+let audioPlaying = false;
 
-// ESC or Spacebar to instantly enter portfolio
-window.addEventListener('keydown', function(e) {
-  const intro = document.getElementById('tasm-video-intro');
-  if (intro && !intro.classList.contains('dismissed')) {
-    if (e.key === 'Escape' || e.code === 'Space') {
-      e.preventDefault();
-      dismissTasmIntro();
-    }
+window.toggleAudio = function() {
+  const audio = document.getElementById('mahabharat-audio');
+  const btn = document.getElementById('audio-toggle');
+  const txt = document.getElementById('audio-text');
+
+  if (!audio) return;
+
+  if (audioPlaying) {
+    audio.pause();
+    audioPlaying = false;
+    if (btn) btn.classList.add('paused');
+    if (txt) txt.textContent = '♪ Theme';
+  } else {
+    audio.volume = 0.4;
+    audio.play().catch(function(err) {
+      console.log('Audio play blocked:', err);
+    });
+    audioPlaying = true;
+    if (btn) btn.classList.remove('paused');
+    if (txt) txt.textContent = '♪ Playing';
   }
-});
+};
 
 (function(){
 'use strict';
 
-/* ─── BACKGROUND CANVAS: particles + web connections ─── */
-  if (intro && !intro.classList.contains('dismissed')) {
-    if (e.key === 'Escape' || e.code === 'Space') {
-      e.preventDefault();
-      dismissTasmIntro();
-    }
-  }
-});
-
-(function(){
-'use strict';
-
-/* ─── BACKGROUND CANVAS: particles + web connections ─── */
+/* ─── BACKGROUND CANVAS: sacred particles + connections ─── */
 const C=document.getElementById('bg-canvas'),X=C.getContext('2d');
 let W,H,particles=[],mx=-9e3,my=-9e3;
-const PN=90,CD=150,MR=170;
+const PN=55,CD=130,MR=140;
 function resize(){W=C.width=innerWidth;H=C.height=innerHeight}
 addEventListener('resize',resize);resize();
 
-const palette=[[229,57,53],[41,121,255],[255,179,0],[0,229,255],[213,0,249],[198,255,0],[255,255,255]];
+// Darker Mahabharata color palette
+const palette=[
+  [196,149,22],  // Gold
+  [224,107,16],  // Saffron
+  [155,27,27],   // Crimson
+  [219,181,32],  // Divine Gold
+  [154,95,42],   // Copper
+  [110,84,16],   // Earth
+];
+
 class P{
   constructor(){this.init()}
   init(){
     this.x=Math.random()*W;this.y=Math.random()*H;
-    this.vx=(Math.random()-.5)*.6;this.vy=(Math.random()-.5)*.6;
-    this.r=Math.random()*2.5+.5;
-    this.a=Math.random()*.45+.1;
+    this.vx=(Math.random()-.5)*.35;this.vy=(Math.random()-.5)*.35;
+    this.r=Math.random()*1.8+.3;
+    this.a=Math.random()*.25+.05;
     this.c=palette[Math.random()*palette.length|0];
     this.pulse=Math.random()*Math.PI*2;
   }
@@ -1772,16 +1311,16 @@ class P{
     if(this.x<0||this.x>W)this.vx*=-1;
     if(this.y<0||this.y>H)this.vy*=-1;
     const dx=this.x-mx,dy=this.y-my,d=Math.hypot(dx,dy);
-    if(d<MR){const f=(MR-d)/MR;this.vx+=dx/d*f*.35;this.vy+=dy/d*f*.35}
+    if(d<MR){const f=(MR-d)/MR;this.vx+=dx/d*f*.25;this.vy+=dy/d*f*.25}
     this.vx*=.99;this.vy*=.99;
-    this.pulse+=.03;
-    this.a=(.25+Math.sin(this.pulse)*.15);
+    this.pulse+=.02;
+    this.a=(.15+Math.sin(this.pulse)*.08);
   }
   draw(){
     X.beginPath();X.arc(this.x,this.y,this.r,0,Math.PI*2);
     X.fillStyle=`rgba(${this.c[0]},${this.c[1]},${this.c[2]},${this.a})`;
-    X.shadowBlur=this.r*4;
-    X.shadowColor=`rgba(${this.c[0]},${this.c[1]},${this.c[2]},.3)`;
+    X.shadowBlur=this.r*3;
+    X.shadowColor=`rgba(${this.c[0]},${this.c[1]},${this.c[2]},.18)`;
     X.fill();X.shadowBlur=0;
   }
 }
@@ -1792,12 +1331,12 @@ function drawLines(){
     for(let j=i+1;j<particles.length;j++){
       const d=Math.hypot(particles[i].x-particles[j].x,particles[i].y-particles[j].y);
       if(d<CD){
-        const a=(1-d/CD)*.12;
+        const a=(1-d/CD)*.06;
         X.beginPath();
         X.moveTo(particles[i].x,particles[i].y);
         X.lineTo(particles[j].x,particles[j].y);
-        X.strokeStyle=`rgba(229,57,53,${a})`;
-        X.lineWidth=.5;X.stroke();
+        X.strokeStyle=`rgba(196,149,22,${a})`;
+        X.lineWidth=.4;X.stroke();
       }
     }
   }
@@ -1812,91 +1351,16 @@ loop();
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 document.addEventListener('mouseleave',()=>{mx=-9e3;my=-9e3});
 
-/* ─── SPIDER-MAN SWINGING ANIMATION ─── */
-const spidey=document.getElementById('spidey-char');
-const webLine=document.getElementById('spidey-web');
-const spideyContainer=document.getElementById('spidey-container');
-
-// Spidey follows a path across the page as you scroll
-let spideyVisible=true;
-const swingPoints=[
-  // Each point: {scrollPct, x%, y%, webOriginX%, webOriginY, flip}
-  {s:0,  x:85, y:15, wx:85, wy:0, flip:false},
-  {s:.12, x:10, y:25, wx:30, wy:0, flip:true},
-  {s:.25, x:92, y:35, wx:92, wy:20, flip:false},
-  {s:.40, x:5,  y:50, wx:20, wy:35, flip:true},
-  {s:.55, x:88, y:58, wx:88, wy:45, flip:false},
-  {s:.70, x:8,  y:72, wx:25, wy:60, flip:true},
-  {s:.85, x:90, y:82, wx:90, wy:72, flip:false},
-  {s:1,   x:50, y:95, wx:50, wy:85, flip:false},
-];
-
-function lerp(a,b,t){return a+(b-a)*t}
-
-function updateSpidey(){
-  const scrollH=document.documentElement.scrollHeight-innerHeight;
-  const pct=scrollH>0?scrollY/scrollH:0;
-
-  // Find surrounding keyframes
-  let i=0;
-  while(i<swingPoints.length-1&&swingPoints[i+1].s<pct)i++;
-  const a=swingPoints[i],b=swingPoints[Math.min(i+1,swingPoints.length-1)];
-  const range=b.s-a.s||1;
-  const t=Math.max(0,Math.min(1,(pct-a.s)/range));
-
-  const cx=lerp(a.x,b.x,t);
-  const cy=lerp(a.y,b.y,t);
-  const wxp=lerp(a.wx,b.wx,t);
-  const wyp=lerp(a.wy,b.wy,t);
-  const flip=t<.5?a.flip:b.flip;
-
-  const px=cx/100*innerWidth;
-  const py=cy/100*(document.documentElement.scrollHeight);
-  const wyAbs=wyp/100*(document.documentElement.scrollHeight);
-
-  // Position spidey
-  spidey.style.left=(px-45)+'px';
-  spidey.style.top=(py-45+scrollY*0)+'px';
-  // Convert to viewport-relative for fixed container
-  const vpY=py-scrollY;
-  spidey.style.left=(px-45)+'px';
-  spidey.style.top=(vpY-45)+'px';
-  spidey.style.transform=flip?'scaleX(-1)':'scaleX(1)';
-
-  // Web line from anchor to spidey
-  const wAnchorX=wxp/100*innerWidth;
-  const wAnchorY=wyAbs-scrollY;
-  const webDx=px-wAnchorX;
-  const webDy=vpY-wAnchorY;
-  const webLen=Math.hypot(webDx,webDy);
-  const webAngle=Math.atan2(webDx,webDy);
-
-  webLine.style.left=wAnchorX+'px';
-  webLine.style.top=wAnchorY+'px';
-  webLine.style.height=webLen+'px';
-  webLine.style.transform=`rotate(${-webAngle}rad)`;
-
-  // Hide if off screen
-  if(vpY<-100||vpY>innerHeight+100){
-    spidey.style.opacity='0';webLine.style.opacity='0';
-  }else{
-    spidey.style.opacity='1';webLine.style.opacity='1';
-  }
-}
-
-addEventListener('scroll',updateSpidey);
-addEventListener('resize',updateSpidey);
-updateSpidey();
-
-/* ─── TYPING ─── */
+/* ─── TYPING — MOTIVATIONAL MAHABHARAT QUOTES ─── */
 const typedEl=document.getElementById('typed');
 const phrases=[
-  '> Student. Creator. Dreamer.',
-  '> "I made a choice. This is my path."',
-  '> Building the future, one line at a time.',
-  '> Your friendly neighbourhood coder. 🕷️',
-  '> "The important thing is you\'re not alone."',
-  '> NST-RU | First Year | Infinite Ambition.',
+  '॥ Student. Creator. Warrior. ॥',
+  '"Your duty is to act, never to its fruits."',
+  'Building the future, one shloka at a time.',
+  '"The soul is neither born, nor does it die."',
+  'NST-RU | First Year | Infinite Dharma.',
+  '"Rise, O Arjuna. Stand and fight!"',
+  'Code is my bow. Logic is my arrow.',
 ];
 let pi=0,ci=0,del=false;
 function type(){
@@ -1904,20 +1368,20 @@ function type(){
   if(!del){
     typedEl.textContent=s.slice(0,ci+1);ci++;
     if(ci===s.length){del=true;setTimeout(type,2200);return}
-    setTimeout(type,55);
+    setTimeout(type,50);
   }else{
     typedEl.textContent=s.slice(0,ci-1);ci--;
-    if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return}
-    setTimeout(type,28);
+    if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,350);return}
+    setTimeout(type,25);
   }
 }
-setTimeout(type,1000);
+setTimeout(type,1200);
 
 /* ─── NAV ─── */
 const nav=document.getElementById('navbar');
 const ham=document.getElementById('hamburger');
 const links=document.getElementById('nav-links');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
 ham.addEventListener('click',()=>{ham.classList.toggle('open');links.classList.toggle('open')});
 links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   ham.classList.remove('open');links.classList.remove('open');
@@ -1926,7 +1390,7 @@ links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
 // Active link
 const secs=document.querySelectorAll('section[id]');
 function activeLink(){
-  const sy=scrollY+200;
+  const sy=scrollY+150;
   secs.forEach(s=>{
     const t=s.offsetTop,h=s.offsetHeight,id=s.id;
     const l=links.querySelector(`a[href="#${id}"]`);
@@ -1935,11 +1399,15 @@ function activeLink(){
 }
 addEventListener('scroll',activeLink);
 
-/* ─── SCROLL REVEAL ─── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')});
-},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+/* ─── SCROLL REVEAL — STAGGERED FADE-INS ─── */
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+    }
+  });
+},{threshold:.08,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revealObs.observe(el));
 
 /* ─── SKILL BARS ─── */
 const barObs=new IntersectionObserver(entries=>{
@@ -1969,18 +1437,56 @@ const statObs=new IntersectionObserver(entries=>{
 },{threshold:.5});
 document.querySelectorAll('.num[data-count]').forEach(el=>statObs.observe(el));
 
-/* ─── PARALLAX ─── */
+/* ─── SMOOTH PARALLAX SCROLLING ─── */
 const heroContent=document.querySelector('.hero-content');
-const emblem=document.querySelector('.spider-emblem');
-addEventListener('scroll',()=>{
-  if(scrollY<innerHeight){
-    heroContent.style.transform=`translateY(${scrollY*.3}px)`;
-    heroContent.style.opacity=1-scrollY/(innerHeight*.8);
-    emblem.style.transform=`translate(-50%,-50%) rotate(${scrollY*.05}deg) scale(${1+scrollY*.0004})`;
+const chakra=document.querySelector('.chakra-emblem');
+const scrollInd=document.querySelector('.scroll-ind');
+const allSections=document.querySelectorAll('.section-wrap');
+
+let lastScroll=0;
+let ticking=false;
+
+function onParallaxScroll(){
+  const sy = window.scrollY;
+  const vh = window.innerHeight;
+
+  // Hero parallax: content slides up, fades out
+  if(sy < vh){
+    const ratio = sy / vh;
+    if(heroContent){
+      heroContent.style.transform=`translateY(${sy*.35}px)`;
+      heroContent.style.opacity=1-ratio*1.1;
+    }
+    if(chakra){
+      chakra.style.transform=`translate(-50%,-50%) rotate(${sy*.06}deg) scale(${1+sy*.0003})`;
+    }
+    // Hide scroll indicator as user scrolls
+    if(scrollInd){
+      scrollInd.style.opacity = Math.max(0, 1 - ratio * 3);
+    }
+  }
+
+  // Subtle parallax on section backgrounds
+  allSections.forEach(function(sec){
+    const rect = sec.getBoundingClientRect();
+    if(rect.top < vh && rect.bottom > 0){
+      const progress = (vh - rect.top) / (vh + rect.height);
+      sec.style.transform = `translateY(${(progress - 0.5) * -12}px)`;
+    }
+  });
+
+  ticking=false;
+}
+
+addEventListener('scroll',function(){
+  lastScroll=scrollY;
+  if(!ticking){
+    requestAnimationFrame(onParallaxScroll);
+    ticking=true;
   }
 });
 
-/* ─── 3D TILT ON CARDS ─── */
+/* ─── SNAPPY 3D TILT ON CARDS ─── */
 if(matchMedia('(hover:hover)').matches){
   document.querySelectorAll('.skill-card,.hobby-card,.project-card,.about-stat').forEach(card=>{
     card.addEventListener('mousemove',e=>{
@@ -1988,35 +1494,60 @@ if(matchMedia('(hover:hover)').matches){
       const x=e.clientX-r.left,y=e.clientY-r.top;
       const rx=(y-r.height/2)/r.height*-8;
       const ry=(x-r.width/2)/r.width*8;
-      card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px) translateZ(20px)`;
+      card.style.transform=`perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-5px) scale(1.01)`;
+      // Dynamic glow follows cursor
+      card.style.boxShadow=`
+        ${(ry*2).toFixed(0)}px ${(-rx*2).toFixed(0)}px 40px rgba(0,0,0,.6),
+        0 0 20px rgba(196,149,22,${Math.min(.08, Math.abs(rx+ry)*.002).toFixed(3)})
+      `;
     });
-    card.addEventListener('mouseleave',()=>card.style.transform='');
+    card.addEventListener('mouseleave',()=>{
+      card.style.transform='';
+      card.style.boxShadow='';
+      card.style.transition='transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease';
+      setTimeout(()=>{card.style.transition='';},350);
+    });
   });
 }
 
-/* ─── CLICK WEB-BURST (vibrant sparks) ─── */
+/* ─── MAGNETIC HOVER ON BUTTONS ─── */
+document.querySelectorAll('.btn-p,.btn-s,.proj-link,.nav-audio-btn').forEach(btn=>{
+  btn.addEventListener('mousemove',function(e){
+    const r = btn.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width/2);
+    const dy = e.clientY - (r.top + r.height/2);
+    btn.style.transform = `translate(${dx*.15}px,${dy*.15}px) scale(1.03)`;
+  });
+  btn.addEventListener('mouseleave',function(){
+    btn.style.transform = '';
+    btn.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1)';
+    setTimeout(()=>{btn.style.transition='';},300);
+  });
+});
+
+/* ─── CLICK SPARK BURST (divine sparks) — tighter ─── */
 document.addEventListener('click',e=>{
   if(e.target.closest('a,button,input,textarea'))return;
-  const colors=['#e53935','#2979ff','#ffb300','#00e5ff','#d500f9','#c6ff00'];
-  for(let i=0;i<10;i++){
+  const colors=['#c49516','#e06b10','#9b1b1b','#dbb520','#9a5f2a','#6e5410'];
+  for(let i=0;i<8;i++){
     const s=document.createElement('div');
     const c=colors[Math.random()*colors.length|0];
     s.style.cssText=`
       position:fixed;left:${e.clientX}px;top:${e.clientY}px;
-      width:${3+Math.random()*4}px;height:${3+Math.random()*4}px;
+      width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;
       border-radius:50%;background:${c};pointer-events:none;z-index:9999;
-      transition:all .7s ease-out;
-      box-shadow:0 0 8px ${c},0 0 16px ${c};
+      transition:all .5s ease-out;
+      box-shadow:0 0 6px ${c},0 0 12px ${c};
     `;
     document.body.appendChild(s);
-    const a=(Math.PI*2/10)*i+Math.random()*.6;
-    const d=50+Math.random()*80;
+    const a=(Math.PI*2/8)*i+Math.random()*.5;
+    const d=35+Math.random()*60;
     requestAnimationFrame(()=>{
       s.style.left=(e.clientX+Math.cos(a)*d)+'px';
       s.style.top=(e.clientY+Math.sin(a)*d)+'px';
-      s.style.opacity='0';s.style.transform='scale(0.1)';
+      s.style.opacity='0';s.style.transform='scale(0.05)';
     });
-    setTimeout(()=>s.remove(),800);
+    setTimeout(()=>s.remove(),600);
   }
 });
 
@@ -2025,7 +1556,7 @@ window.handleSubmit=function(e){
   e.preventDefault();
   const btn=e.target.querySelector('button[type="submit"]');
   const orig=btn.innerHTML;
-  btn.innerHTML='Message Sent! 🕸️ ✓';btn.style.pointerEvents='none';
+  btn.innerHTML='Message Sent! 🕊️ ✓';btn.style.pointerEvents='none';
   setTimeout(()=>{btn.innerHTML=orig;btn.style.pointerEvents='';e.target.reset()},3000);
 };
 
